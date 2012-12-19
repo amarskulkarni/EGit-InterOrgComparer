@@ -20,7 +20,6 @@ public with sharing class AddMetadata {
  	objectInformation.Label__c = objectMetadata.label;
     objectInformation.Plural_Label__c = objectMetadata.labelPlural; 
     objectInformation.Key_Prefix__c = objectMetadata.keyPrefix; 
-  //objectInformation.Is_Accessible__c = objectMetadata.activateable; 
     objectInformation.Is_Createable__c = objectMetadata.createable;
     objectInformation.Is_Custom_Object__c = objectMetadata.custom;
     objectInformation.Is_Custom_Setting__c = objectMetadata.customSetting;
@@ -75,7 +74,6 @@ public with sharing class AddMetadata {
         fieldInformation.Can_Create__c = fieldMetadata.createable;
         fieldInformation.Can_Update__c = fieldMetadata.updateable;
         fieldInformation.Can_Upsert__c = fieldMetadata.idLookup;
-    //  fieldInformation.Is_Field_Visible__c = fieldMetadata.isAccessible();
         fieldInformation.Has_Multiple_SObject_Parents__c = fieldMetadata.namePointing;
         fieldInformation.Contains_HTML_Data__c = fieldMetadata.htmlFormatted;
         fieldInformation.Is_Deprecated__c = fieldMetadata.deprecatedAndHidden;

@@ -16,7 +16,7 @@ public with sharing class CreateTestData {
 	public static final string SERVER_URL = 'https://ap1-api.salesforce.com/services/Soap/u/21.0/00D90000000YYpr';
 	public static final string ORG_ID = 't001';
 	public static final string ORGNAME = 'test';
-	
+	 
 	//Method to create test data for Object_Information__c custom object
 	public static void createObjectInformationTestData(){
 		List<Object_Information__c> objectInfoList = new List<Object_Information__c>();
@@ -85,7 +85,7 @@ public with sharing class CreateTestData {
 	
 	public static void createObjectApiDetailed(String pObject){
 		List<Object_Information__c> objectInfoList = new List<Object_Information__c>();
-		objectInfoList.add(new Object_Information__c(API_Name__c = pObject,Org_Id__c=ORG_ID));
+		objectInfoList.add(new Object_Information__c(API_Name__c = pObject,Org_Id__c=UserInfo.getOrganizationId()));
 		insert objectInfoList;
 	}
 }
