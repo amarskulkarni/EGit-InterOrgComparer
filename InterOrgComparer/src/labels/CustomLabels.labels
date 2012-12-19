@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Account_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Account String</shortDescription>
+        <value>Account</value>
+    </labels>
+    <labels>
+        <fullName>Add_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Comparison</shortDescription>
+        <value>Add Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Anytype_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Anytype String</shortDescription>
+        <value>anytype</value>
+    </labels>
+    <labels>
+        <fullName>Base64Binary_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Base64Binary String</shortDescription>
+        <value>base64binary</value>
+    </labels>
+    <labels>
+        <fullName>Batch_Failed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Batch Failed</shortDescription>
+        <value>Last extraction was failed may be due to some interruption, Please generate report again.</value>
+    </labels>
+    <labels>
+        <fullName>Batch_Running_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Batch Running Error</shortDescription>
+        <value>Another batch is already processing, kindly try after some time.</value>
+    </labels>
+    <labels>
+        <fullName>Batch_Running_Error1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Batch Running Error1</shortDescription>
+        <value>Batch is running, you will be notified through email after completion of the batch.</value>
+    </labels>
+    <labels>
+        <fullName>Batch_Running_Or_No_Result</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Batch Running Or No Result</shortDescription>
+        <value>Your request is in progress, you will receive email notification once the data extraction is completed</value>
+    </labels>
+    <labels>
+        <fullName>Batch_in_Progress_Info</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Batch in Progress Info</shortDescription>
+        <value>Your request is in progress, you will receive an email notification once the data extraction is completed.</value>
+    </labels>
+    <labels>
+        <fullName>Boolean_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Boolean String</shortDescription>
+        <value>boolean</value>
+    </labels>
+    <labels>
+        <fullName>Boolean_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Boolean String1</shortDescription>
+        <value>Boolean</value>
+    </labels>
+    <labels>
+        <fullName>Check_Credentials</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Please check username and password...!!!</shortDescription>
+        <value>Please check username and password...!!!</value>
+    </labels>
+    <labels>
+        <fullName>Checkbox_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Checkbox String</shortDescription>
+        <value>Checkbox</value>
+    </labels>
+    <labels>
+        <fullName>Child_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Child Comparison</shortDescription>
+        <value>Child Relationship Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Child_Metadata</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Child Metadata Title</shortDescription>
+        <value>Child Relationship Metadata</value>
+    </labels>
+    <labels>
+        <fullName>Child_Relationship_Comparison_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Child Relationship Comparison Type</shortDescription>
+        <value>Child Relationship</value>
+    </labels>
+    <labels>
+        <fullName>Child_Relationship_Level_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Child Relationship Level Comparison</shortDescription>
+        <value>Child Relationship Level Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Comma</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Comma</shortDescription>
+        <value>,</value>
+    </labels>
+    <labels>
+        <fullName>Compare</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Compare</shortDescription>
+        <value>Compare</value>
+    </labels>
+    <labels>
+        <fullName>Comparison_Job_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Comparison Job Name</shortDescription>
+        <value>Object Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Contact_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contact String</shortDescription>
+        <value>Contact</value>
+    </labels>
+    <labels>
+        <fullName>Currency_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Currency String</shortDescription>
+        <value>currency</value>
+    </labels>
+    <labels>
+        <fullName>Currency_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Currency String1</shortDescription>
+        <value>Currency</value>
+    </labels>
+    <labels>
+        <fullName>Date_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date String</shortDescription>
+        <value>date</value>
+    </labels>
+    <labels>
+        <fullName>Date_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date String1</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>Date_Time_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date Time String</shortDescription>
+        <value>datetime</value>
+    </labels>
+    <labels>
+        <fullName>Date_Time_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Date Time String1</shortDescription>
+        <value>DateTime</value>
+    </labels>
+    <labels>
+        <fullName>Detail_Comparison_Excel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Detail Comparison Report</shortDescription>
+        <value>DetailComparisonReport_</value>
+    </labels>
+    <labels>
+        <fullName>Detail_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Detail Comparison Report</shortDescription>
+        <value>Detail Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Detailed_Compare</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Detailed Compare</shortDescription>
+        <value>Detailed Compare</value>
+    </labels>
+    <labels>
+        <fullName>Developer_Production</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Developer/Production</shortDescription>
+        <value>Developer/Production</value>
+    </labels>
+    <labels>
+        <fullName>Double_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Double String</shortDescription>
+        <value>double</value>
+    </labels>
+    <labels>
+        <fullName>Double_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Double String1</shortDescription>
+        <value>Double</value>
+    </labels>
+    <labels>
+        <fullName>Email_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email String</shortDescription>
+        <value>email</value>
+    </labels>
+    <labels>
+        <fullName>Email_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email String1</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>Encountered_Problem_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Encountered Problem String</shortDescription>
+        <value>Encountered Problem</value>
+    </labels>
+    <labels>
+        <fullName>Encrypted_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Encrypted String</shortDescription>
+        <value>encryptedstring</value>
+    </labels>
+    <labels>
+        <fullName>Encrypted_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Encrypted String1</shortDescription>
+        <value>Encrypted</value>
+    </labels>
+    <labels>
+        <fullName>Environment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Environment</shortDescription>
+        <value>Environment</value>
+    </labels>
+    <labels>
+        <fullName>Eternus_Detailed_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Eternus Detailed Comparison Report</shortDescription>
+        <value>Eternus: Detailed comparison report:</value>
+    </labels>
+    <labels>
+        <fullName>Eternus_Full_Object_Metadata_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Eternus Full Object Metadata Report</shortDescription>
+        <value>Eternus: Full object metadata report:</value>
+    </labels>
+    <labels>
+        <fullName>Eternus_Object_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Eternus Object Comparison Report</shortDescription>
+        <value>Eternus: Object comparison report:</value>
+    </labels>
+    <labels>
+        <fullName>Eternus_Quick_Report_Subject</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Eternus Quick Comparison Report</shortDescription>
+        <value>Eternus: Quick Comparison Report :</value>
+    </labels>
+    <labels>
+        <fullName>Extract_Metadata</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Extract metadata</shortDescription>
+        <value>Extract Metadata</value>
+    </labels>
+    <labels>
+        <fullName>Field_Category_Custom</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Category Custom</shortDescription>
+        <value>Custom</value>
+    </labels>
+    <labels>
+        <fullName>Field_Category_Standard</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Category Standard</shortDescription>
+        <value>Standard</value>
+    </labels>
+    <labels>
+        <fullName>Field_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Comparison</shortDescription>
+        <value>Field Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Field_Comparison_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Comparison Type</shortDescription>
+        <value>Field Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Field_Level_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Field Level Comparison</shortDescription>
+        <value>Field Level Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Field_Metadata</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Title for Field metadata view</shortDescription>
+        <value>Field Metadata</value>
+    </labels>
+    <labels>
+        <fullName>Full_Object_Metadata_Report_Link</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Full Object Metadata Report Link</shortDescription>
+        <value>/apex/MetadataReport</value>
+    </labels>
+    <labels>
+        <fullName>General_Exception</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>General Exception</shortDescription>
+        <value>List has no rows for assignment to SObject</value>
+    </labels>
+    <labels>
+        <fullName>Generate_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Generate Report</shortDescription>
+        <value>Generate Report</value>
+    </labels>
+    <labels>
+        <fullName>ID_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ID String</shortDescription>
+        <value>id</value>
+    </labels>
+    <labels>
+        <fullName>ID_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ID String1</shortDescription>
+        <value>ID</value>
+    </labels>
+    <labels>
+        <fullName>Integer_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Integer String</shortDescription>
+        <value>integer</value>
+    </labels>
+    <labels>
+        <fullName>Integer_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Integer String1</shortDescription>
+        <value>Integer</value>
+    </labels>
+    <labels>
+        <fullName>Intra_org_Metadata_Comparer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Intra-org Metadata Comparer</shortDescription>
+        <value>Intra-org Metadata Comparer</value>
+    </labels>
+    <labels>
+        <fullName>Is_Nillable</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Is Nillable</shortDescription>
+        <value>Is Nillable?</value>
+    </labels>
+    <labels>
+        <fullName>Login</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Login</shortDescription>
+        <value>Login</value>
+    </labels>
+    <labels>
+        <fullName>Login_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Login Details</shortDescription>
+        <value>Login Details</value>
+    </labels>
+    <labels>
+        <fullName>Logout</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Logout</shortDescription>
+        <value>Logout</value>
+    </labels>
+    <labels>
+        <fullName>Lookup</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Lookup</shortDescription>
+        <value>Lookup</value>
+    </labels>
+    <labels>
+        <fullName>Master_Detail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Master Detail</shortDescription>
+        <value>Master-Detail</value>
+    </labels>
+    <labels>
+        <fullName>Match</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Match</shortDescription>
+        <value>Match</value>
+    </labels>
+    <labels>
+        <fullName>Match_Percentage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Match Percentage</shortDescription>
+        <value>Match %</value>
+    </labels>
+    <labels>
+        <fullName>Match_Percentage_at_Child_Relationship_Level</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Match Percentage at Child Relationship Level</shortDescription>
+        <value>Match % at Child Relationship Level</value>
+    </labels>
+    <labels>
+        <fullName>Match_Percentage_at_Field_Level</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Match Percentage at Field Level</shortDescription>
+        <value>Match % at Field Level</value>
+    </labels>
+    <labels>
+        <fullName>Match_Percentage_at_Object_Level</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Match Percentage at Object Level</shortDescription>
+        <value>Match % at Object Level</value>
+    </labels>
+    <labels>
+        <fullName>MetadataReport_Select_Object</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Label of Select Object</shortDescription>
+        <value>Select Object :</value>
+    </labels>
+    <labels>
+        <fullName>Metadata_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Metadata Comparison Report</shortDescription>
+        <value>UC Comparison</value>
+    </labels>
+    <labels>
+        <fullName>More_than_3_object_to_compare</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>More than 3 object to compare</shortDescription>
+        <value>You can&apos;t have comparison on more than 3 objects.</value>
+    </labels>
+    <labels>
+        <fullName>NA</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NA</shortDescription>
+        <value>NA</value>
+    </labels>
+    <labels>
+        <fullName>No_All_Metadata_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No All Metadata Report</shortDescription>
+        <value>Please generate Full Object schema report to view this report.</value>
+    </labels>
+    <labels>
+        <fullName>No_Childs_Relationships_Present</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Childs Relationships Present</shortDescription>
+        <value>No Child Relationships Present for the Selected Object.</value>
+    </labels>
+    <labels>
+        <fullName>No_Comparison_Metadata_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Comparison Metadata Report</shortDescription>
+        <value>Please generate Object Comparison report to view this report.</value>
+    </labels>
+    <labels>
+        <fullName>No_Detailed_Comparison_Metadata_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Detailed Comparison Metadata Report</shortDescription>
+        <value>Please generate Detailed Comparison report to view this report.</value>
+    </labels>
+    <labels>
+        <fullName>No_Field_Match</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Field Match</shortDescription>
+        <value>no field match found</value>
+    </labels>
+    <labels>
+        <fullName>No_Field_Match1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Field Match1</shortDescription>
+        <value>No Field Match Found</value>
+    </labels>
+    <labels>
+        <fullName>No_Fields_Relationships_Present</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Fields Relationships Present</shortDescription>
+        <value>No Field level Metadata Present for the Selected Object.</value>
+    </labels>
+    <labels>
+        <fullName>No_Fields_level_Comparison_Present</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Fields level Comparison Present</shortDescription>
+        <value>No Fields level comparison present for the selected object.</value>
+    </labels>
+    <labels>
+        <fullName>No_Match_Percentage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Match Percentage</shortDescription>
+        <value>No Match %</value>
+    </labels>
+    <labels>
+        <fullName>No_Quick_Comparison_Metadata_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Quick Comparison Metadata Report</shortDescription>
+        <value>Please generate Quick Comparison report to view this report.</value>
+    </labels>
+    <labels>
+        <fullName>No_Result_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Result Error</shortDescription>
+        <value>There is no result to display.</value>
+    </labels>
+    <labels>
+        <fullName>No_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No String</shortDescription>
+        <value>no</value>
+    </labels>
+    <labels>
+        <fullName>No_Values</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Values</shortDescription>
+        <value>No Values</value>
+    </labels>
+    <labels>
+        <fullName>Number_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Number String</shortDescription>
+        <value>Number</value>
+    </labels>
+    <labels>
+        <fullName>ObjectMetadata</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Object Metadata</shortDescription>
+        <value>Object Metadata</value>
+    </labels>
+    <labels>
+        <fullName>Object_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Object Comparison</shortDescription>
+        <value>Object Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Object_Comparison_Report_Link</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Object Comparison Report Link</shortDescription>
+        <value>/apex/MetadataComparisionReport</value>
+    </labels>
+    <labels>
+        <fullName>Object_Comparison_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Object Comparison Type</shortDescription>
+        <value>Object Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Object_Level_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Object Level Comparison</shortDescription>
+        <value>Object Level Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Org_Instance_Url</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Org Instance Url</shortDescription>
+        <value>https://testmanagedapp</value>
+    </labels>
+    <labels>
+        <fullName>Org_Metadata_Comparison_Dashboard</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Org Metadata Comparison Dashboard</shortDescription>
+        <value>Metadata_Comparison_Dashboard</value>
+    </labels>
+    <labels>
+        <fullName>Org_Namespace</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Org Namespace</shortDescription>
+        <value>Testmanagedapp</value>
+    </labels>
+    <labels>
+        <fullName>Parent_Object_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Parent Object String</shortDescription>
+        <value>parent_object__c</value>
+    </labels>
+    <labels>
+        <fullName>Password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Password</shortDescription>
+        <value>Password</value>
+    </labels>
+    <labels>
+        <fullName>Percent_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Percent String</shortDescription>
+        <value>percent</value>
+    </labels>
+    <labels>
+        <fullName>Percent_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Percent String1</shortDescription>
+        <value>Percent</value>
+    </labels>
+    <labels>
+        <fullName>Phone_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Phone String</shortDescription>
+        <value>phone</value>
+    </labels>
+    <labels>
+        <fullName>Phone_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Phone String1</shortDescription>
+        <value>Phone</value>
+    </labels>
+    <labels>
+        <fullName>Picklist_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Picklist String</shortDescription>
+        <value>picklist</value>
+    </labels>
+    <labels>
+        <fullName>Picklist_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Picklist String1</shortDescription>
+        <value>Picklist</value>
+    </labels>
+    <labels>
+        <fullName>Preparing_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Preparing Status</shortDescription>
+        <value>preparing</value>
+    </labels>
+    <labels>
+        <fullName>Processing_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Processing Status</shortDescription>
+        <value>processing</value>
+    </labels>
+    <labels>
+        <fullName>Queued_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Queued Status</shortDescription>
+        <value>queued</value>
+    </labels>
+    <labels>
+        <fullName>Quick_Compare</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quick Compare</shortDescription>
+        <value>Quick Compare</value>
+    </labels>
+    <labels>
+        <fullName>Quick_Comparison_Dashboard</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quick Comparison Dashboard Dashboard</shortDescription>
+        <value>InterOrgComparer_QuickComparison</value>
+    </labels>
+    <labels>
+        <fullName>Radio_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Radio Comparison Report</shortDescription>
+        <value>comparison_report</value>
+    </labels>
+    <labels>
+        <fullName>Radio_Complete_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Radio Complete Report</shortDescription>
+        <value>complete_report</value>
+    </labels>
+    <labels>
+        <fullName>Radio_Option_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Radio Option Comparison Report</shortDescription>
+        <value>Object Comparison Report</value>
+    </labels>
+    <labels>
+        <fullName>Radio_Option_Complete_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Radio Option Complete Report</shortDescription>
+        <value>Full Object Schema Report</value>
+    </labels>
+    <labels>
+        <fullName>Radio_Option_Detailed_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Detailed Comparison</shortDescription>
+        <value>Detailed Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Radio_Option_Quick_Comparison</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quick Comparison</shortDescription>
+        <value>Quick Comparison</value>
+    </labels>
+    <labels>
+        <fullName>Redirect_DetailedReport</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Redirect DetailedReport</shortDescription>
+        <value>DetailedComparisonReport</value>
+    </labels>
+    <labels>
+        <fullName>Redirect_MetadataComparisionReport</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Redirect MetadataComparisionReport</shortDescription>
+        <value>__MetadataComparisionReport</value>
+    </labels>
+    <labels>
+        <fullName>Redirect_MetadataReport</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Redirect MetadataReport</shortDescription>
+        <value>__MetadataReport</value>
+    </labels>
+    <labels>
+        <fullName>Redirect_QuickReport</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Redirect QuickReport</shortDescription>
+        <value>QuickComparisonReport</value>
+    </labels>
+    <labels>
+        <fullName>Reference_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reference String</shortDescription>
+        <value>reference</value>
+    </labels>
+    <labels>
+        <fullName>Reference_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Reference String1</shortDescription>
+        <value>Reference</value>
+    </labels>
+    <labels>
+        <fullName>Remove</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Remove</shortDescription>
+        <value>Remove</value>
+    </labels>
+    <labels>
+        <fullName>Round_Bracket_Close</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Round Bracket Close</shortDescription>
+        <value>)</value>
+    </labels>
+    <labels>
+        <fullName>Round_Bracket_Open</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Round Bracket Open</shortDescription>
+        <value>(</value>
+    </labels>
+    <labels>
+        <fullName>Run_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Run Report on Metadata Report</shortDescription>
+        <value>Run Report</value>
+    </labels>
+    <labels>
+        <fullName>Salesforce_Administrator_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Salesforce Administrator String</shortDescription>
+        <value>Salesforce Administrator</value>
+    </labels>
+    <labels>
+        <fullName>Sandbox</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Sandbox</shortDescription>
+        <value>Sandbox</value>
+    </labels>
+    <labels>
+        <fullName>Security_Token</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Security Token</shortDescription>
+        <value>Security Token</value>
+    </labels>
+    <labels>
+        <fullName>Select_Comaprison_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select Comaprison Type</shortDescription>
+        <value>Select Comaprison Type :</value>
+    </labels>
+    <labels>
+        <fullName>Select_Objects_to_Compare</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select Objects to Compare</shortDescription>
+        <value>Select objects to compare:</value>
+    </labels>
+    <labels>
+        <fullName>Select_Option</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select Option</shortDescription>
+        <value>---Select---</value>
+    </labels>
+    <labels>
+        <fullName>Select_Report_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select Report Type</shortDescription>
+        <value>Object Schema Reports</value>
+    </labels>
+    <labels>
+        <fullName>Select_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Select String</shortDescription>
+        <value>select</value>
+    </labels>
+    <labels>
+        <fullName>Show_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Show Report</shortDescription>
+        <value>Show Report</value>
+    </labels>
+    <labels>
+        <fullName>Source</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Source</shortDescription>
+        <value>Source</value>
+    </labels>
+    <labels>
+        <fullName>Source_Object</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Source Object</shortDescription>
+        <value>Source Object:</value>
+    </labels>
+    <labels>
+        <fullName>Source_Object_Not_Selected_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Source Object Not Selected Error</shortDescription>
+        <value>Please select source object to compare</value>
+    </labels>
+    <labels>
+        <fullName>Source_Target_Object_Same_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Source Target Object Same Error</shortDescription>
+        <value>Source and target object are same, Please select different source and target object</value>
+    </labels>
+    <labels>
+        <fullName>Sr_No</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Sr.No.</shortDescription>
+        <value>Sr.No.</value>
+    </labels>
+    <labels>
+        <fullName>String_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>String String</shortDescription>
+        <value>string</value>
+    </labels>
+    <labels>
+        <fullName>String_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>String String1</shortDescription>
+        <value>String</value>
+    </labels>
+    <labels>
+        <fullName>Success_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Success String</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>Target</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Target</shortDescription>
+        <value>Target</value>
+    </labels>
+    <labels>
+        <fullName>Target_Object</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Target Object</shortDescription>
+        <value>Target Object:</value>
+    </labels>
+    <labels>
+        <fullName>Target_Object_Not_Selected_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Target Object Not Selected Error</shortDescription>
+        <value>Please select target object to compare</value>
+    </labels>
+    <labels>
+        <fullName>Text_Area_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Text Area String</shortDescription>
+        <value>textarea</value>
+    </labels>
+    <labels>
+        <fullName>Text_Area_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Text Area String1</shortDescription>
+        <value>Text Area</value>
+    </labels>
+    <labels>
+        <fullName>Text_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Text String</shortDescription>
+        <value>Text</value>
+    </labels>
+    <labels>
+        <fullName>Time_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time String</shortDescription>
+        <value>time</value>
+    </labels>
+    <labels>
+        <fullName>Time_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time String1</shortDescription>
+        <value>Time</value>
+    </labels>
+    <labels>
+        <fullName>UC_Comparison_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>UC Comparison Report</shortDescription>
+        <value>UC_ComparisonReport_</value>
+    </labels>
+    <labels>
+        <fullName>UC_Org_Metadata_Report</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>UC Org Metadata Report</shortDescription>
+        <value>UC_OrgMetadataReport_</value>
+    </labels>
+    <labels>
+        <fullName>Ultra_Compare</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Ultra Compare</shortDescription>
+        <value>UC Generate Report</value>
+    </labels>
+    <labels>
+        <fullName>Url_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Url String</shortDescription>
+        <value>url</value>
+    </labels>
+    <labels>
+        <fullName>Url_String1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Url String1</shortDescription>
+        <value>URL</value>
+    </labels>
+    <labels>
+        <fullName>Use_in_Upsert</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Use in Upsert</shortDescription>
+        <value>Can Use In Upsert?</value>
+    </labels>
+    <labels>
+        <fullName>Username</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Username</shortDescription>
+        <value>Username</value>
+    </labels>
+    <labels>
+        <fullName>Yes_String</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Yes String</shortDescription>
+        <value>yes</value>
+    </labels>
+    <labels>
+        <fullName>batches_could_not_be_processed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>batches could not be processed</shortDescription>
+        <value>batches could not be processed due to data storage problems</value>
+    </labels>
+    <labels>
+        <fullName>completed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Completed</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>cookie_esplInterOrgName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>remote SFDC org name</shortDescription>
+        <value>esplInterOrgName</value>
+    </labels>
+    <labels>
+        <fullName>cookie_esplInterOrgOrgId</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>remote SFDC org Id</shortDescription>
+        <value>esplInterOrgOrgId</value>
+    </labels>
+    <labels>
+        <fullName>cookie_esplInterOrgServerUrl</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>remote rg SFDC server url</shortDescription>
+        <value>esplInterOrgServerUrl</value>
+    </labels>
+    <labels>
+        <fullName>cookie_esplInterOrgSessionId</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Remote SFDC org session Id</shortDescription>
+        <value>esplInterOrgSessionId</value>
+    </labels>
+    <labels>
+        <fullName>cookie_esplInterOrgUserName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>remote SFDC org username</shortDescription>
+        <value>esplInterOrgUserName</value>
+    </labels>
+    <labels>
+        <fullName>data_storage_capacity_message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>data storage message or no data present</shortDescription>
+        <value>The field level metadata could not be extracted may be due to the data storage capacity of the Org</value>
+    </labels>
+    <labels>
+        <fullName>data_storage_capacity_message_child</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>data storage capacity message child</shortDescription>
+        <value>The Child Relationship metadata could not be extracted may be due to the data storage capacity of the Org</value>
+    </labels>
+    <labels>
+        <fullName>https</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>https</shortDescription>
+        <value>https://</value>
+    </labels>
+    <labels>
+        <fullName>picklist_limit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>picklist limit</shortDescription>
+        <value>32000</value>
+    </labels>
+    <labels>
+        <fullName>text_xml</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>text xml</shortDescription>
+        <value>text/xml</value>
+    </labels>
+</CustomLabels>

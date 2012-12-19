@@ -1,0 +1,15 @@
+/*  Schedular class for scheduling ExtractMetadataBatch batch job  
+*	Revision History: 
+*	Version				 Author				  Date				Description 
+*	1.0				  Amol Chaudhari		22/11/2012			Intial Draft 
+*/
+global with sharing class ExtractMetadataBatchScheduler implements Schedulable{
+
+	public ExtractMetadataBatchScheduler(){
+	}
+
+	global void execute(SchedulableContext pSchedulableContext)
+    {
+        Database.executeBatch(new ExtractMetadataBatch(), 1);
+    }
+}

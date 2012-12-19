@@ -1,0 +1,118 @@
+/*  This is a Batch class describing Object level metadata as well as their field level metadata. 
+*		
+*	Revision History: 
+*	Version				Author				Date				Description 
+*	1.0				 Amol Chaudhari		  23/11/2012	 		Intial Draft 
+*/
+global with sharing class ExtractMetadataBatch implements Database.Batchable<sObject>, Database.Stateful,
+Database.AllowsCallouts{
+ 
+	private	String query;
+	private List<String> lstTargetObjectName = new List<String>();
+	private String sourceObjectName;
+	private final string COMPLETED= 'Completed';
+	private final string EXTRACT_METADATA_BATCH = 'ExtractMetadataBatch';
+	private string sessionId;
+	private string serverUrl;
+	private string remoteOrgId;
+	private string selfSession;
+	private list<DynamicCustomField> lstObjectsToCompare;
+	RestResponse restResponse = new RestResponse();         //object of ReseReponse class
+	ObjectMetadata objMetadata = new ObjectMetadata();      //object of ObjectMetadata class 
+	SendRequests objSendRequests = new SendRequests();      //object of SendRequests class
+	JSONMetadataParser jsonparser = new JSONMetadataParser(); //object of JSONMetadataParser class
+	AddMetadata addMetadata = new AddMetadata();
+	private String completionStatus = '';
+	
+	global ExtractMetadataBatch(string pSessionId, string pServerUrl,string pRemoteOrgId){
+		sessionId = pSessionId;
+		serverUrl = pServerUrl;
+		remoteOrgId = pRemoteOrgId;
+		query = getQuery();
+	}
+	
+	global ExtractMetadataBatch(string pSessionId, string pServerUrl,string pRemoteOrgId,
+	                              list<DynamicCustomField> plstObjectsToCompare, string pselfOrgSession){
+		sessionId = pSessionId;
+		serverUrl = pServerUrl;
+		remoteOrgId = pRemoteOrgId;
+		lstObjectsToCompare = plstObjectsToCompare;
+		selfSession = pselfOrgSession;
+		query = 'Select Id, API_Name__c From Object_Information__c where Org_Id__c!=null';
+	} 
+	
+	global Database.QueryLocator start(Database.BatchableContext BC){		
+		return Database.getQueryLocator(query);
+	} 
+	
+	global void execute(Database.BatchableContext BC, List<sObject> scope){
+      
+        try{
+        	if(lstObjectsToCompare==null){
+		        List<Object_Information__c> objectInformationList = (List<Object_Information__c>)scope;
+        		objectInformationList[0] = MetadataManager.getObjectMetadata(objectInformationList[0].API_Name__c, objectInformationList[0].Id);
+	            update objectInformationList;
+        	}else{
+        		 Object_Information__c  objSObjectInformation = (Object_Information__c) scope[0];
+		        //getting the REST response as Json
+		        restResponse =  objSendRequests.getObjectMetadata(selfSession,serverUrl,
+		                                                         objSObjectInformation.API_Name__c);
+			    //getting the ObjectMetadata instance, updating the Object level info in custom object
+		        objMetadata = jsonparser.getSobjectMetadata(restResponse.rest_response_body);
+		        //inserting Field level info to the custom object
+		        String interOrgId = Userinfo.getOrganizationId();
+		        addMetadata.insertObjectInfo(objMetadata,objSObjectInformation.Id,interOrgId); 
+        	}  
+        }
+	    catch(Exception genException){
+	   	    //system.debug('Exception:'+genException);
+	   	    ExceptionManager.logError(system.now(), genException.getMessage(), UserInfo.getUserId());
+	   	    completionStatus = system.Label.Encountered_Problem_String;	   	    
+	    }
+	    
+    }
+    
+    global void finish(Database.BatchableContext BC){
+       Datetime systemDateTime = System.now();
+    	systemDateTime = systemDateTime.addSeconds(20);
+    	String cronExpression = constructCronExpression();
+       if(lstObjectsToCompare!=null) 
+          System.schedule('InitialBatchSetUp'+ systemDateTime.getTime(), 
+    	           cronExpression, new ExtractRemoteMetadataBatchScheduler(sessionId, serverUrl, remoteOrgId,
+    	                                                 lstObjectsToCompare));
+       else{
+	       Datetime systemDateTime1 = System.now();
+		   systemDateTime1 = systemDateTime1.addSeconds(20);
+		   String cronExpression1 = constructCronExpression();
+		   //Schedule the next job, and give it the system time so name is unique
+		    ObjectMetadata objMetadata = new ObjectMetadata();
+			RestResponse restResponse = new RestResponse();
+			AddMetadata addMetadata = new AddMetadata();   
+			SendRequests sendRequest = new SendRequests();
+			JSONMetadataParser jsonMetadataParser = new JSONMetadataParser();
+			
+			list<ObjectMetadata> objectMetadataList = new list<ObjectMetadata>();
+			//getting the session information from cookie values
+		 	restResponse = sendRequest.sendMetadataRequest(sessionId, serverUrl); 
+			system.debug('RestResponse...QUICK'+restResponse.rest_response_body);
+			objectMetadataList = jsonMetadataParser.getSobjectQuickMetadata(restResponse.rest_response_body);
+		    system.debug('objectMetadataList...QUICK'+objectMetadataList.size());                                  
+			if(!objectMetadataList.isEmpty()){ 
+				addMetadata.insertObjectQuickInfo(objectMetadataList,remoteOrgId);
+			}	
+       }		  
+	}
+	
+	//Method which return query in string format
+	private String getQuery(){
+		return 'Select Id, API_Name__c From Object_Information__c';
+	}
+	
+	//Method which constructs a cron expression 
+	private String constructCronExpression(){
+		Datetime currentDateTime = System.now();
+	    currentDateTime = currentDateTime.addSeconds(30);
+	    return '' + currentDateTime.second() + ' ' + currentDateTime.minute() + ' ' + currentDateTime.hour() 
+	              + ' ' + currentDateTime.day() + ' ' + currentDateTime.month() + ' ? ' + currentDateTime.year();
+	}
+}

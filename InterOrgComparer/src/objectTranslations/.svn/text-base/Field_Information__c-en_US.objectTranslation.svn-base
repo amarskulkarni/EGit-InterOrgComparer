@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Field Information</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Field Informations</value>
+    </caseValues>
+    <fields>
+        <help><!-- API Name of the field. --></help>
+        <label><!-- API Name --></label>
+        <name>API_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Maximum size of the field. --></help>
+        <label><!-- Byte Length --></label>
+        <name>Byte_Length__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field can be created by current user or not. --></help>
+        <label><!-- Can Create --></label>
+        <name>Can_Create__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field can be updated by the current user or not. --></help>
+        <label><!-- Can Update --></label>
+        <name>Can_Update__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field can be used to specify a record in an upsert method or not. --></help>
+        <label><!-- Can Upsert --></label>
+        <name>Can_Upsert__c</name>
+    </fields>
+    <fields>
+        <help><!-- Self lookup. --></help>
+        <label><!-- Comparison Source --></label>
+        <name>Comparison_Source__c</name>
+        <relationshipLabel><!-- Field Informations --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field has been formatted for HTML. --></help>
+        <label><!-- Contains HTML Data --></label>
+        <name>Contains_HTML_Data__c</name>
+    </fields>
+    <fields>
+        <help><!-- Maximum number digits specified for the field. --></help>
+        <label><!-- Digits --></label>
+        <name>Digits__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field is a standard or custom field. --></help>
+        <label><!-- Field Category --></label>
+        <name>Field_Category__c</name>
+        <picklistValues>
+            <masterLabel>Custom Field</masterLabel>
+            <translation><!-- Custom Field --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Standard Field</masterLabel>
+            <translation><!-- Standard Field --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Formula used for the formula field. --></help>
+        <label><!-- Formula Used --></label>
+        <name>Formula_Used__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines if the field can have multiple types of objects as parents. --></help>
+        <label><!-- Has Multiple SObject Parents --></label>
+        <name>Has_Multiple_SObject_Parents__c</name>
+    </fields>
+    <fields>
+        <help><!-- Help text related to the field. --></help>
+        <label><!-- Help Text --></label>
+        <name>Help_Text__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field is auto number or not. --></help>
+        <label><!-- Is Auto Number --></label>
+        <name>Is_Auto_Number__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field is case sensitive or not. --></help>
+        <label><!-- Is Case Sensitive --></label>
+        <name>Is_Case_Sensitive__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the picklist is a dependent picklist or not. --></help>
+        <label><!-- Is Dependent Picklist --></label>
+        <name>Is_Dependent_Picklist__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field is hidden or not. --></help>
+        <label><!-- Is Deprecated --></label>
+        <name>Is_Deprecated__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field is used as an external ID or not. --></help>
+        <label><!-- Is External ID --></label>
+        <name>Is_External_ID__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the current user can see this field or not. --></help>
+        <label><!-- Is Field Visible --></label>
+        <name>Is_Field_Visible__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field is required or not. --></help>
+        <label><!-- Is Required --></label>
+        <name>Is_Required__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines if the field is unique or not. --></help>
+        <label><!-- Is Unique --></label>
+        <name>Is_Unique__c</name>
+    </fields>
+    <fields>
+        <help><!-- Label of the object. --></help>
+        <label><!-- Label --></label>
+        <name>Label__c</name>
+    </fields>
+    <fields>
+        <help><!-- Length of the field. --></help>
+        <label><!-- Length --></label>
+        <name>Length__c</name>
+    </fields>
+    <fields>
+        <help><!-- Master-Detail relationship between this object and Object Information. --></help>
+        <label><!-- Parent Object --></label>
+        <name>Parent_Object__c</name>
+        <relationshipLabel><!-- Field Informations --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Picklist values of the picklist field. --></help>
+        <label><!-- Picklist Values --></label>
+        <name>Picklist_Values__c</name>
+    </fields>
+    <fields>
+        <help><!-- For fields of type Double, the maximum number of digits that can be stored, including all numbers to the left and to the right of the decimal point. --></help>
+        <label><!-- Precision --></label>
+        <name>Precision__c</name>
+    </fields>
+    <fields>
+        <help><!-- Relationship name for the field. --></help>
+        <label><!-- Relationship Name --></label>
+        <name>Relationship_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- For fields of type Double, the number of
+digits to the right of the decimal point. --></help>
+        <label><!-- Scale --></label>
+        <name>Scale__c</name>
+    </fields>
+    <fields>
+        <help><!-- DisplayType enum values for the field. --></help>
+        <label><!-- Soap Type --></label>
+        <name>Soap_Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date</masterLabel>
+            <translation><!-- Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DateTime</masterLabel>
+            <translation><!-- DateTime --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Double</masterLabel>
+            <translation><!-- Double --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ID</masterLabel>
+            <translation><!-- ID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Integer</masterLabel>
+            <translation><!-- Integer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>String</masterLabel>
+            <translation><!-- String --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Time</masterLabel>
+            <translation><!-- Time --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>anytype</masterLabel>
+            <translation><!-- anytype --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>base64binary</masterLabel>
+            <translation><!-- base64binary --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Data type of the field. --></help>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Checkbox</masterLabel>
+            <translation><!-- Checkbox --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Currency</masterLabel>
+            <translation><!-- Currency --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date</masterLabel>
+            <translation><!-- Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DateTime</masterLabel>
+            <translation><!-- DateTime --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Encrypted</masterLabel>
+            <translation><!-- Encrypted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ID</masterLabel>
+            <translation><!-- ID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Multi Picklist</masterLabel>
+            <translation><!-- Multi Picklist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Name</masterLabel>
+            <translation><!-- Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation><!-- Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Percent</masterLabel>
+            <translation><!-- Percent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation><!-- Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Picklist</masterLabel>
+            <translation><!-- Picklist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reference</masterLabel>
+            <translation><!-- Reference --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation><!-- Text --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text Area</masterLabel>
+            <translation><!-- Text Area --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>URL</masterLabel>
+            <translation><!-- URL --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field can be included in the GROUP BY clause of a SOQL query or not. --></help>
+        <label><!-- Use in Group By Clause --></label>
+        <name>Use_in_Group_By_Clause__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the query can sort on the field or not. --></help>
+        <label><!-- Use in Order By Clause --></label>
+        <name>Use_in_Order_By_Clause__c</name>
+    </fields>
+    <fields>
+        <help><!-- Determines whether the field can be used as part of the filter criteria of a WHERE statement or not. --></help>
+        <label><!-- Use in Where Clause --></label>
+        <name>Use_in_Where_Clause__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

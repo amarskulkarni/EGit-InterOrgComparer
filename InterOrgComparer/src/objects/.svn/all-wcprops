@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects
+END
+OpportunityContactRole.object
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/OpportunityContactRole.object
+END
+ContractContactRole.object
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/ContractContactRole.object
+END
+Case.object
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Case.object
+END
+Opportunity.object
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Opportunity.object
+END
+Solution.object
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Solution.object
+END
+Comparison_Log__c.object
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/Projects/!svn/ver/9800/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Comparison_Log__c.object
+END
+Object_Information__c.object
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/Projects/!svn/ver/9800/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Object_Information__c.object
+END
+Contract.object
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Contract.object
+END
+User.object
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/User.object
+END
+Campaign.object
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Campaign.object
+END
+Asset.object
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Asset.object
+END
+ContentVersion.object
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/ContentVersion.object
+END
+Event.object
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Event.object
+END
+UserLicense.object
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/UserLicense.object
+END
+Field_Information__c.object
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/Projects/!svn/ver/9800/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Field_Information__c.object
+END
+AccountContactRole.object
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/AccountContactRole.object
+END
+Contact.object
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Contact.object
+END
+Activity.object
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Activity.object
+END
+Account.object
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Account.object
+END
+PartnerRole.object
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/PartnerRole.object
+END
+Idea.object
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Projects/!svn/ver/9798/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Idea.object
+END
+Product2.object
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Product2.object
+END
+SocialPersona.object
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/SocialPersona.object
+END
+Task.object
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Task.object
+END
+OpportunityLineItem.object
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/OpportunityLineItem.object
+END
+Site.object
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Site.object
+END
+Lead.object
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Lead.object
+END
+Child_Relationship__c.object
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/Projects/!svn/ver/9800/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/Child_Relationship__c.object
+END
+CampaignMember.object
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/CampaignMember.object
+END
+CaseContactRole.object
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/Projects/!svn/ver/8678/SchemaComparer/InterOrgComparer/SourceCode/InterOrgComparer/src/objects/CaseContactRole.object
+END

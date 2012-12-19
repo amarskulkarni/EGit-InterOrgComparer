@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Comparison Log</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Comparison Logs</value>
+    </caseValues>
+    <fields>
+        <help><!-- Determines the object or field attributes which are being compared. --></help>
+        <label><!-- Attribute --></label>
+        <name>Attribute__c</name>
+    </fields>
+    <fields>
+        <label><!-- ComparisonType --></label>
+        <name>ComparisonType__c</name>
+    </fields>
+    <fields>
+        <help><!-- Formula to get the source field to which the current field is being compared. --></help>
+        <label><!-- Comparison Field Source --></label>
+        <name>Comparison_Field_Source__c</name>
+    </fields>
+    <fields>
+        <help><!-- Formula to get the source object to which the current object is being compared. --></help>
+        <label><!-- Comparison Object Source --></label>
+        <name>Comparison_Object_Source__c</name>
+    </fields>
+    <fields>
+        <help><!-- Lookup to Field Information. --></help>
+        <label><!-- Field --></label>
+        <name>Field__c</name>
+        <relationshipLabel><!-- Comparison Logs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Signifies whether the match has occurred or not. --></help>
+        <label><!-- Match --></label>
+        <name>Match__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Lookup to Object Information. --></help>
+        <label><!-- Object --></label>
+        <name>Object__c</name>
+        <relationshipLabel><!-- Comparison Logs --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,30 @@
+/*  Apex class to check for the Batch status (enabling of comparison depends on this status)
+ *	Revision History: 
+ *	Version				Author				Date				Description 
+ *	1.0				  Amol Chaudhari	   03/12/2012			Intial Draft 
+ */
+public with sharing class CheckForBatchStatus {
+    //final variables
+    private static final string METADATA_COMPARER_BATCH = 'MetadataComparerBatch';
+    private static final string COMPLETED = 'Completed';
+    
+    public static Integer checkforBatchStatus(String pBatchToCheck){
+    	ApexClass classObject = [select Id, Name from ApexClass where Name =:pBatchToCheck limit 1];
+        List<AsyncApexJob> apexJobList = [select Id, Status, ApexClassId, TotalJobItems from AsyncApexJob order by CreatedDate desc limit 1];
+    	List<Report_Type__c> reportTypeList = [select Id, Report_Status__c from Report_Type__c limit 1];
+    	 if(!reportTypeList.isEmpty()){
+        	if(reportTypeList[0].Report_Status__c.compareTo(System.Label.Radio_Option_Quick_Comparison) == 0){
+        		if(!apexJobList.isEmpty()){
+        			if((apexJobList[0].Status.compareTo(COMPLETED) == 0 && apexJobList[0].ApexClassId==classObject.Id)||(apexJobList[0].Status.compareTo('Failed') == 0)){
+        				return 1;
+        		    } 	
+        		}else
+        		return 1;
+        	}
+        }else{
+        	return 1; 
+        }
+        
+        return 0;
+    }
+}

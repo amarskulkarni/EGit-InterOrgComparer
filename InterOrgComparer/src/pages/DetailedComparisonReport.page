@@ -1,0 +1,52 @@
+<!-- * page for the Detailed Comparison Report showing Object, Field and Child Relationship Comparison 
+       for the selected pair of Source and Target SObjects  -->
+<!-- *  Revision History: -->
+<!-- *  Version             Author              Date                Description -->
+<!-- *  1.0                Amol Chaudhari      06/12/2012          Intial Draft -->
+
+<apex:page sidebar="false" controller="DetailComparisonReportController"
+	tabStyle="Detail_Comparison__tab">
+	<head>
+<apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/DetailComparison.css')}" />
+	</head>
+	<apex:sectionHeader id="header"
+		title="{!$Label.Detail_Comparison_Report}" />
+	<body>
+		<apex:outputLabel value="{!batchProgressInfo}" id="batchProgressInfo"
+			rendered="{!isBatchRunning}" style="color:Gray;font-weight:bold" />
+		<apex:outputLabel value="{!batchFailed}" rendered="{!isBatchFailed}"
+			style="color:Gray;font-weight:bold" />
+ 
+		<apex:outputLabel value="{!$Label.No_Detailed_Comparison_Metadata_Report}"
+			rendered="{!!isDetailedReport}" style="color:gray;font-weight:bold" />
+		<apex:outputPanel rendered="{!isReportVisible}">
+			<br /> 
+			<apex:outputLink value="{!urlToExport}" target="_self"
+				title="Export To Excel" style="float:right;margin-right:25px;">
+				<apex:param name="targetObjField" value="targetObjField" />
+				<apex:param name="targetObjChild" value="targetObjChild" />
+				<apex:image value="{!URLFOR($Resource.InterOrgComparerResources, 'img/ExportToExcel.png')}">
+				</apex:image>
+			</apex:outputLink>
+			<br />
+			<br />
+			<div id="motifCurve">
+				<apex:tabpanel styleClass="tabPanelcls" tabClass="activeTab"
+					inactiveTabClass="inactiveTab" switchType="client">
+					<apex:tab label="Object Comparison"
+						title="Object Metadata Comparsion">
+						<c:ObjectComparisonComponent />
+					</apex:tab>
+					<apex:tab label="Field Comparison"
+						title="Field Metadata Comparsion">
+						<c:FieldComparisonComponent />
+					</apex:tab>
+					<apex:tab label="Child Relationship Comparison"
+						title="Child Relationships Metadata Comparsion">
+						<c:ChildComparisonComponent />
+					</apex:tab>
+				</apex:tabpanel>
+			</div>
+		</apex:outputPanel>
+	</body>
+</apex:page>

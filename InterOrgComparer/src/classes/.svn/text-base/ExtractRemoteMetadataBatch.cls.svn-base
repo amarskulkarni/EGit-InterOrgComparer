@@ -1,0 +1,70 @@
+/* SendRequests -  batch which will take each record(object) to which we have to stored in the
+                   custom object
+*  Revision History:
+*
+*  Version             Author                  Date                Description
+*  1.0                 Amol Chaudhari          04/10/2012          Initial Draft 
+*/
+global with sharing class ExtractRemoteMetadataBatch implements Database.Batchable<sObject>,
+                                              Database.AllowsCallouts{
+    private	String query;               
+	RestResponse restResponse = new RestResponse();         //object of ReseReponse class
+	ObjectMetadata objMetadata = new ObjectMetadata();      //object of ObjectMetadata class 
+	SendRequests objSendRequests = new SendRequests();      //object of SendRequests class
+	JSONMetadataParser jsonparser = new JSONMetadataParser(); //object of JSONMetadataParser class
+	AddMetadata addMetadata = new AddMetadata();
+	public string interOrgSessionId;  //sessionId of connected org
+	public string interOrgServerUrl;  //serverUrl of connected org	
+	public string interOrgId;         //org Id of connected org	
+	private list<DynamicCustomField> lstObjectsToCompare;
+	
+	//getting the sessionId and serverUrl
+	global ExtractRemoteMetadataBatch(string sessionId, string serverUrl, string orgId){
+		interOrgSessionId = sessionId;
+		interOrgServerUrl = serverUrl;
+		interOrgId = orgId;
+		query = 'Select Id, API_Name__c From Object_Information__c';
+	}
+	
+	global ExtractRemoteMetadataBatch(string pSessionId, string pServerUrl, string pRemoteOrgId,
+	                                     list<DynamicCustomField> plstObjectsToCompare){
+		interOrgSessionId = pSessionId;
+		interOrgServerUrl = pServerUrl;
+		interOrgId = pRemoteOrgId;
+		lstObjectsToCompare = plstObjectsToCompare;
+		query = 'Select Id, API_Name__c From Object_Information__c where Org_Id__c=null';
+	}
+	
+	
+	global ExtractRemoteMetadataBatch(){
+		query = 'Select Id, API_Name__c From Object_Information__c';	
+	} 
+	
+	global Database.QueryLocator start(Database.BatchableContext BC){
+		return Database.getQueryLocator(query);
+	}
+	
+	//making callouts for getting Json Response, passing that Json response to Parser
+	//to get the ObjectMetadata instance and storing the same into custom object
+	global void execute(Database.BatchableContext BC, List<sObject> scope){
+		Object_Information__c  objSObjectInformation = (Object_Information__c) scope[0];
+        //getting the REST response as Json
+        restResponse = objSendRequests.getObjectMetadata(interOrgSessionId,interOrgServerUrl,
+                                                         objSObjectInformation.API_Name__c);
+	    //getting the ObjectMetadata instance, updating the Object level info in custom object
+        objMetadata = jsonparser.getSobjectMetadata(restResponse.rest_response_body);
+        //inserting Field level info to the custom object
+        addMetadata.insertObjectInfo(objMetadata,objSObjectInformation.Id,interOrgId);
+	    system.debug('restResponse.batch......'+restResponse);
+	    system.debug('objSObjectInformation......'+objSObjectInformation);
+	    system.debug('objMetadata......'+objMetadata);
+	    system.debug('SESSION...BATCH..EXECUTE'+interOrgSessionId);
+    }
+    
+    global void finish(Database.BatchableContext BC){
+    	if(lstObjectsToCompare!=null)
+    	    MatchObjects.matchingObjects(lstObjectsToCompare);
+    	     
+		system.debug('SESSION...BATCH..FINISH');
+	}
+}

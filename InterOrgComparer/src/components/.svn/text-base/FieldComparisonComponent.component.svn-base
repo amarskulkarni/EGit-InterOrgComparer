@@ -1,0 +1,645 @@
+<!-- Component which will be embeded in tab panel for Field Level metadata Comparison in Detail Comparison
+<!-- *  Revision History: -->
+<!-- *  Version             Author              Date                Description -->
+<!-- *  1.0                Amol Chaudhari      06/12/2012          Intial Draft -->
+
+<apex:component controller="FieldComparisonComponentController">
+    <body>
+        <apex:form id="frmField">
+         <apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/compare.css')}" />
+         <apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/SnapItMetadataXplorerStyle.css')}" />
+         <table>
+			<tr>
+			<td><apex:outputlabel value="{!$Label.Source_Object}" style="font-weight:bold;"
+                                styleClass="fontSelectBold" /></td>
+			<td> <apex:selectList id="sourceObject" styleClass="generalNormalLogin"
+                                value="{!sourceObjectName}" size="1" >
+               	<apex:actionSupport event="onchange"
+							action="{!matchingTargetObjects}"
+							status="loadingStatus1" rerender="targetObject" />                 
+                  <apex:selectOptions value="{!sourceObjectList}"  /> 
+           </apex:selectList></td>
+			<td><apex:outputlabel value="{!$Label.Target_Object}"
+                                styleClass="fontSelectBold"  style="margin-left: 25px;font-weight:bold;"/></td>
+			<td><apex:selectList id="targetObject" styleClass="generalNormalLogin"
+                                value="{!targetObjectName}" size="1" >
+                  <apex:selectOptions value="{!targetObjectList}"  />
+           </apex:selectList></td>
+           <td><apex:actionStatus id="loadingStatus1"
+							onstart="document.body.style.cursor='wait';return true;"
+							onStop="document.body.style.cursor='default';return true;"
+							startStyleClass="generalNormal">
+							<apex:facet name="start">
+								<center>
+									<img src="/img/loading.gif" />&nbsp;
+								</center>
+							</apex:facet>
+							<apex:facet name="stop" />
+						</apex:actionStatus>
+					</td>
+			<td><apex:commandButton style="margin-left: 25px;" value="{!$Label.Show_Report}" action="{!fieldMetadataComparison}"  
+                        status="loadingStatus" rerender="frmField" styleClass="fontSelectBold"/></td>
+                        
+                <td> <apex:actionStatus id="loadingStatus"
+		onstart="document.body.style.cursor='wait';return true;"
+		onStop="document.body.style.cursor='default';return true;"
+		startStyleClass="generalNormal">
+		<apex:facet name="start">
+			<center>
+				<img src="/img/loading.gif" />&nbsp;Processing...
+			</center>
+		</apex:facet>
+		<apex:facet name="stop" />
+	</apex:actionStatus></td>        
+			</tr>
+	 </table>
+	<br/>                    
+         <apex:outputPanel title="{!$Label.Field_Comparison}">               
+                <apex:outputPanel id="fldComparisonTable">
+                    <div style="width: 1300px; max-height: 450px;overflow: scroll">
+                        <table cellpadding="4" border="1" cellspacing="0">
+                            <tr>
+                                <th rowspan="2" bgcolor="#99CCFF" class="headersCenterBold">{!$label.Sr_No}</th>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Label__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.API_Name__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Type__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Length__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Scale__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Precision__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Digits__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Byte_Length__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Field_Category__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Soap_Type__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Formula_Used__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Help_Text__c.label}</td>
+                                  <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Default_Value__c.label}</td>    
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Relationship_Name__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Picklist_Values__c.label}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Can_Create__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Can_Update__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$Label.Use_in_Upsert}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Contains_HTML_Data__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Has_Multiple_SObject_Parents__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Auto_Number__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Case_Sensitive__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Dependent_Picklist__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Deprecated__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_External_ID__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Field_Visible__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$label.Is_Nillable}</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Unique__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Use_in_Group_By_Clause__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Use_in_Order_By_Clause__c.label}?</td>
+                                <td colspan="3" class = "headersCenterBold"
+                                    bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Use_in_Where_Clause__c.label}?</td>
+
+                            </tr>
+                            <tr>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Source}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Target}</td>
+                                <td class="headersBold"
+                                    bgcolor="#99CCFF">{!$label.Match}</td>
+                            </tr>
+                      
+                            <apex:repeat value="{!fieldComparisonLogList}"
+                                var="fldComparison">
+                                <tr>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.srNo}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldLabel}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldLabel}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldLabel}" 
+                                    styleclass="{!IF(fldComparison.matchFieldLabel=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldAPIName}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldAPIName}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldFieldAPIName}"
+                                    styleclass="{!IF(fldComparison.matchFieldFieldAPIName=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldType}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldType}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldType}"
+                                    styleclass="{!IF(fldComparison.matchFieldType=='Yes','green','red')}" ></apex:outputLabel></td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldLength}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldLength}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldLength}"
+                                    styleclass="{!IF(fldComparison.matchFieldLength=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldScale}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldScale}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldScale}"
+                                    styleclass="{!IF(fldComparison.matchFieldScale=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldPrecision}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldPrecision}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldPrecision}"
+                                    styleclass="{!IF(fldComparison.matchFieldPrecision=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldDigits}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldDigits}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldDigits}"
+                                    styleclass="{!IF(fldComparison.matchFieldDigits=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldByteLength}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldByteLength}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldByteLength}"
+                                    styleclass="{!IF(fldComparison.matchFieldByteLength=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldCategory}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldCategory}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldCategory}"
+                                    styleclass="{!IF(fldComparison.matchFieldCategory=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldSoapType}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldSoapType}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldSoapType}"
+                                    styleclass="{!IF(fldComparison.matchFieldSoapType=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldFormulaeUsed}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldFormulaeUsed}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldFormulaeUsed}"
+                                    styleclass="{!IF(fldComparison.matchFieldFormulaeUsed=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldHelpText}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldHelpText}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldHelpText}"
+                                    styleclass="{!IF(fldComparison.matchFieldHelpText=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+                                    
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceDefaultValue}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetDefaultValue}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchDefaultValue}"
+                                    styleclass="{!IF(fldComparison.matchDefaultValue=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+                                    
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldRelationshipName}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldRelationshipName}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldRelationshipName}"
+                                    styleclass="{!IF(fldComparison.matchFieldRelationshipName=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldPicklistValues}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldPicklistValues}"></apex:outputLabel>
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldPicklistValues}"
+                                    styleclass="{!IF(fldComparison.matchFieldPicklistValues=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldCreatable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldCreatable}" /></td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldCreatable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldCreatable}" /></td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldCreatable}"
+                                    styleclass="{!IF(fldComparison.matchFieldCreatable=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldUpdateable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldUpdateable}" /></td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldUpdateable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldUpdateable}" /></td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUpdateable}"
+                                    styleclass="{!IF(fldComparison.matchFieldUpdateable=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldUpsertable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldUpsertable}" /></td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldUpsertable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldUpsertable}" /></td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUpsertable}"
+                                    styleclass="{!IF(fldComparison.matchFieldUpsertable=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldContainsHtmlData}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldContainsHtmlData}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldContainsHtmlData}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldContainsHtmlData}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldContainsHtmlData}"
+                                    styleclass="{!IF(fldComparison.matchFieldContainsHtmlData=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldHasMultipleSObjectParents}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldHasMultipleSObjectParents}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldHasMultipleSObjectParents}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldHasMultipleSObjectParents}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldHasMultipleSObjectParents}"
+                                    styleclass="{!IF(fldComparison.matchFieldHasMultipleSObjectParents=='Yes','green','red')}" ></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldAutoNumber}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldAutoNumber}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldAutoNumber}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldAutoNumber}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldAutoNumber}"
+                                    styleclass="{!IF(fldComparison.matchFieldAutoNumber=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldCaseSensitive}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldCaseSensitive}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldCaseSensitive}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldCaseSensitive}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldCaseSensitive}"
+                                    styleclass="{!IF(fldComparison.matchFieldCaseSensitive=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldDependentPicklist}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldDependentPicklist}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldDependentPicklist}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldDependentPicklist}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldDependentPicklist}"
+                                    styleclass="{!IF(fldComparison.matchFieldDependentPicklist=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldDeprecated}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldDeprecated}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldDeprecated}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldDeprecated}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldDeprecated}"
+                                    styleclass="{!IF(fldComparison.matchFieldDeprecated=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldExternalID}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldExternalID}" />
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldExternalID}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldExternalID}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldExternalID}"
+                                    styleclass="{!IF(fldComparison.matchFieldExternalID=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldVisible}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldVisible}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldVisible}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldVisible}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldVisible}"
+                                    styleclass="{!IF(fldComparison.matchFieldVisible=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldRequired}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldRequired}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldRequired}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldRequired}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldRequired}"
+                                    styleclass="{!IF(fldComparison.matchFieldRequired=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldUnique}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldUnique}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldUnique}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldUnique}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUnique}"
+                                    styleclass="{!IF(fldComparison.matchFieldUnique=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldUseinGroupByClause}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldUseinGroupByClause}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldUseinGroupByClause}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldUseinGroupByClause}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUseinGroupByClause}"
+                                    styleclass="{!IF(fldComparison.matchFieldUseinGroupByClause=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldUseinOrderByClause}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldUseinOrderByClause}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldUseinOrderByClause}" />
+                                        <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldUseinOrderByClause}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUseinOrderByClause}"
+                                    styleclass="{!IF(fldComparison.matchFieldUseinOrderByClause=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.sourceFieldUseinWhereClause}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.sourceFieldUseinWhereClause}" />
+                                    </td>
+                                    <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                            rendered="{!fldComparison.targetFieldUseinWhereClause}" /> <apex:image value="/img/checkbox_unchecked.gif"
+                                            rendered="{!!fldComparison.targetFieldUseinWhereClause}" />
+                                    </td>
+                                    <td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUseinWhereClause}"
+                                    styleclass="{!IF(fldComparison.matchFieldUseinWhereClause=='Yes','green','red')}"></apex:outputLabel>
+                                    </td>
+
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </div>
+                </apex:outputPanel>
+      
+            </apex:outputPanel>
+        </apex:form>
+    </body>
+</apex:component>

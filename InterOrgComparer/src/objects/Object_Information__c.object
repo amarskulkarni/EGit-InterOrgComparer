@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store metadata information of the objects present in an org.</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>API_Name__c</fullName>
+        <description>API Name of the object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the object.</inlineHelpText>
+        <label>API Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Chatter_Feed_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the chatter feed is enabled for the object or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the chatter feed is enabled for the object or not.</inlineHelpText>
+        <label>Chatter Feed Enabled</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comparison_Source__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Self lookup.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Self lookup.</inlineHelpText>
+        <label>Comparison Source</label>
+        <referenceTo>Object_Information__c</referenceTo>
+        <relationshipLabel>Object Informations</relationshipLabel>
+        <relationshipName>Object_Informations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Is_Accessible__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the current user can see this object or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the current user can see this object or not.</inlineHelpText>
+        <label>Is Accessible</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Createable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object can be created by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object can be created by the current user or not.</inlineHelpText>
+        <label>Is Createable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Custom_Object__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object has custom setting or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object has custom setting or not.</inlineHelpText>
+        <label>Is Custom Object</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Custom_Setting__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Custom Setting</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Deletable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object can be deleted by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object can be deleted by the current user or not.</inlineHelpText>
+        <label>Is Deletable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Deprecated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object is hidden or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object is hidden or not.</inlineHelpText>
+        <label>Is Deprecated</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Mergeable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object can be merged with the other objects of its type by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object can be merged with the other objects of its type by the current user or not.</inlineHelpText>
+        <label>Is Mergeable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Queryable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object can be queried by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object can be queried by the current user or not.</inlineHelpText>
+        <label>Is Queryable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Searchable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object can be searched by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object can be searched by the current user or not.</inlineHelpText>
+        <label>Is Searchable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Undeletable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object cannot be undeleted by the current user or it can be.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object cannot be undeleted by the current user or it can be.</inlineHelpText>
+        <label>Is Undeletable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Updateable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the object can be updated by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the object can be updated by the current user or not.</inlineHelpText>
+        <label>Is Updateable</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Key_Prefix__c</fullName>
+        <description>Key prefix of the object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Key prefix of the object.</inlineHelpText>
+        <label>Key Prefix</label>
+        <length>3</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <description>Label of the object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Label of the object.</inlineHelpText>
+        <label>Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Org_Id__c</fullName>
+        <description>Organization ID of the organization.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Organization ID of the organization.</inlineHelpText>
+        <label>Org Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Plural_Label__c</fullName>
+        <description>Plural label of the object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Plural label of the object.</inlineHelpText>
+        <label>Plural Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Object Information</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Object Information Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Object Informations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

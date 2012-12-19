@@ -1,0 +1,92 @@
+global with sharing class MetadataComparerBatch implements Database.Batchable<sObject>, Database.Stateful
+{
+     // Unmatched Sobjects from both the orgs
+     public set<Id> setSelfUnmatchedObjects = new set<Id>();
+   	 public set<Id> setTargetUnmatchedObjects = new set<Id>();
+   	 private String query;                                       //variable to store the query string
+   	 private String completionStatus = '';
+   	 private final string COMPLETED= 'Completed';
+   	 private final string METADATA_COMPARER_BATCH = 'MetadataComparerBatch';
+   	 
+   	 map<Id,Id> mapMatchingObjectPairs = new map<Id,Id>();
+	 map<String,String> mapUmMatchedObjectPairs = new map<String,String>();
+    
+    global MetadataComparerBatch(map<Id,Id> pmapMatchingObject,
+                                   set<Id> psetSelfUnMatch,
+                                      set<Id> psetTargetUnMatch){
+		setSelfUnmatchedObjects = psetSelfUnMatch;
+		setTargetUnmatchedObjects = psetTargetUnMatch;
+		query = 'Select Api_Name__c, Comparison_Source__r.Api_Name__c from Object_Information__c where Comparison_Source__r.Api_Name__c!=null';
+	}
+	
+	global MetadataComparerBatch(map<Id,Id> pmapMatchingObjectPairs){
+		mapMatchingObjectPairs = pmapMatchingObjectPairs; 
+       // mapUmMatchedObjectPairs = pmapUmMatchedObjectPairs;
+		query = 'Select Api_Name__c, Comparison_Source__r.Api_Name__c from Object_Information__c where Comparison_Source__r.Api_Name__c!=null';
+	}
+	 
+	global Database.QueryLocator start(Database.BatchableContext BC)
+	{
+        return Database.getQueryLocator(query);
+	}
+	
+	/*calling a method with Id's of Source & Target objects to compare, a method will compare all of the 
+	attributes of the same and inserts the Comparison data into custom object Comparison Log*/
+	global void execute(Database.BatchableContext BC, List<sObject> scope)
+	{
+	  Object_Information__c objObjectInfo = (Object_Information__c) scope[0];
+	  if(mapMatchingObjectPairs!=null)
+	      MetadataComparer.compareObjectMetadata(objObjectInfo.Comparison_Source__r.Id, 
+	                                             objObjectInfo.Id,'Detailed');
+	  else
+	      MetadataComparer.compareObjectMetadata(objObjectInfo.Comparison_Source__r.Id, 
+	                                             objObjectInfo.Id,'Quick');                                                                                                                     
+    }
+    
+    //add remaining unmatched source and target data into Comparison Log custom object
+    global void finish(Database.BatchableContext BC)
+    {
+    	
+   	List<Comparison_Log__c> lstComparisonLog = new List<Comparison_Log__c>();
+        
+        if(setSelfUnmatchedObjects!=null){
+        	//adding unmatched source objects into Comparison Log
+	        for(Id objSelfId : setSelfUnmatchedObjects){
+	            lstComparisonLog.add(new Comparison_Log__c(
+		                                    Object__c = objSelfId, 
+		                                    TargetObject__c = MetadataComparerHelper.MATCH_NO,
+		                                    SourceObject__c = null,
+		                                    Attribute__c = MetadataComparerHelper.NO_FIELDS_MATCH_FOUND,
+		                                    Match__c = MetadataComparerHelper.MATCH_NO));                                                
+	        }
+        }
+        
+        if(setTargetUnmatchedObjects!=null){
+        	//adding unmatched target objects into Comparison Log
+	        for(Id objTargetId : setTargetUnmatchedObjects){
+	            lstComparisonLog.add(new Comparison_Log__c(
+		                                    Object__c = objTargetId, 
+		                                    TargetObject__c = null,
+		                                    SourceObject__c = MetadataComparerHelper.MATCH_NO,
+		                                    Attribute__c = MetadataComparerHelper.NO_FIELDS_MATCH_FOUND,
+		                                    Match__c = MetadataComparerHelper.MATCH_NO));                                                
+	        }
+        }
+        
+        //insert the list in Comparison Log
+        if(!lstComparisonLog.isEmpty())
+           insert lstComparisonLog;  
+        
+            ApexClass classObject = [select Id, Name from ApexClass where Name =:METADATA_COMPARER_BATCH limit 1];
+    	    List<AsyncApexJob> apexJobList = [select Id, Status,NumberOfErrors, ApexClassId from AsyncApexJob where JobType='BatchApex' order by CreatedDate desc limit 1];
+    	    if(!apexJobList.isEmpty()){
+                  if(apexJobList[0].Status.compareTo(COMPLETED) == 0 && apexJobList[0].ApexClassId==classObject.Id)
+                  {
+                     if(apexJobList[0].NumberOfErrors == 0)
+                         EmailManager.sendEmailOnCompletionOfQuickComparisonReport(completionStatus);
+                     else
+                         EmailManager.sendEmailOnCompletionOfQuickComparisonReport(String.valueof(apexJobList[0].NumberOfErrors));    
+                  }
+            }    
+	}
+}

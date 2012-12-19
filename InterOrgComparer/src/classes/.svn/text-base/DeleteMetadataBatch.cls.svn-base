@@ -1,0 +1,83 @@
+/*  Batch class used to delete records of object information, field information
+*   and child relationship information custom objects. 
+*		
+*	Revision History: 
+*	Version				 Author				  Date				Description 
+*	1.0				  Amol Chaudhari		22/11/2012			Intial Draft 
+*/
+
+global with sharing class DeleteMetadataBatch implements Database.Batchable<sObject>, Database.Stateful{
+	
+	private	String query;
+	private string sessionId;
+	private string serverUrl;
+	private string remoteOrgId;
+	private map<String,String> mapComparisonObjects;
+	private list<DynamicCustomField> lstObjectsToCompare;
+	private string selfSession;         
+	
+	global DeleteMetadataBatch(string pSessionId, string pServerUrl, string pRemoteOrgId){
+		sessionId = pSessionId;
+		serverUrl = pServerUrl;
+		remoteOrgId = pRemoteOrgId;
+		query = 'select Id, Name from Object_Information__c  where Id!=null'; 
+	}
+	
+	global DeleteMetadataBatch(string pSessionId, string pServerUrl, string pRemoteOrgId, 
+	                                              list<DynamicCustomField> plstObjectsToCompare,string pselfSession){
+		sessionId = pSessionId;
+		serverUrl = pServerUrl;
+		remoteOrgId = pRemoteOrgId;
+		//mapComparisonObjects = new map<String,String>();
+		//mapComparisonObjects = pmapComparisonObjects;
+		lstObjectsToCompare = plstObjectsToCompare;
+		selfSession = pselfSession;
+		query = 'select Id, Name from Object_Information__c  where Id!=null'; 
+	}
+	
+	
+	global Database.QueryLocator start(Database.BatchableContext BC){
+		
+		return Database.getQueryLocator(query); 
+	}
+	
+	global void execute(Database.BatchableContext BC, List<sObject> scope){
+		List<Object_Information__c> objectInfoObjList = (List<Object_Information__c>)scope;        
+       	try{ 
+        	if(!objectInfoObjList.isEmpty())
+        		delete objectInfoObjList;
+	    }
+	    catch(Exception genException){
+	   	    ExceptionManager.logError(system.now(), genException.getMessage(), UserInfo.getUserId());	   	    
+	    }
+    } 
+    
+    global void finish(Database.BatchableContext BC){ 
+    	Datetime systemDateTime = System.now();
+    	systemDateTime = systemDateTime.addSeconds(20);
+    	String cronExpression = constructCronExpression(); 
+    	if(lstObjectsToCompare==null)
+    	    System.schedule('InitialBatchSetUp'+ systemDateTime.getTime(), 
+    	            cronExpression, new InitialBatchSetupScheduler(sessionId, serverUrl, remoteOrgId));
+    	else                       
+    	     System.schedule('InitialBatchSetUp'+ systemDateTime.getTime(), 
+    	            cronExpression, new InitialBatchSetupScheduler(sessionId, serverUrl, remoteOrgId, 
+    	                                                             lstObjectsToCompare,selfSession));                 
+    }
+      
+    //Method which constructs a cron expression
+	private String constructCronExpression(){
+		Datetime currentDateTime = System.now();
+	    currentDateTime = currentDateTime.addSeconds(30);
+	    return '' + currentDateTime.second() + ' ' + currentDateTime.minute() + ' ' + currentDateTime.hour() 
+	              + ' ' + currentDateTime.day() + ' ' + currentDateTime.month() + ' ? ' + currentDateTime.year();
+	}
+	
+	//Method which constructs a cron expression
+	private String constructCronExpression1(){
+		Datetime currentDateTime = System.now();
+	    currentDateTime = currentDateTime.addSeconds(150);
+	    return '' + currentDateTime.second() + ' ' + currentDateTime.minute() + ' ' + currentDateTime.hour() 
+	              + ' ' + currentDateTime.day() + ' ' + currentDateTime.month() + ' ? ' + currentDateTime.year();
+	} 
+}

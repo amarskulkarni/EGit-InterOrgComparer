@@ -1,0 +1,34 @@
+<!-- * page for the Detailed Comparison Report showing Object, Field and Child Relationship Comparison 
+       for the selected pair of Source and Target SObjects  -->
+<!-- *  Revision History: -->
+<!-- *  Version             Author              Date                Description -->
+<!-- *  1.0                Amol Chaudhari      06/12/2012          Intial Draft -->
+
+<apex:page sidebar="false" controller="DetailComparisonReportController"
+	tabStyle="Detail_Comparison__tab">
+	<head>
+<apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/DetailComparison.css')}" />
+	</head>
+	<body>
+		<apex:sectionHeader id="header"
+			title="{!$Label.Detail_Comparison_Report}" />
+		<br />
+		<br />
+		<div id="motifCurve">
+			<apex:tabpanel styleClass="tabPanelcls" tabClass="activeTab"
+				inactiveTabClass="inactiveTab" switchType="client">
+				<apex:tab label="Object Comparison"
+					title="Object Metadata Comparsion">
+					<c:ObjectComparisonComponent />
+				</apex:tab>
+				<apex:tab label="Field Comparison" title="Field Metadata Comparsion">
+				   <c:FieldComparisonComponent />
+				</apex:tab>
+				<apex:tab label="Child Relationship Comparison"
+					title="Child Relationships Metadata Comparsion">
+				<c:ChildComparisonComponent />	
+				</apex:tab>
+			</apex:tabpanel>
+		</div>
+	</body>
+</apex:page>

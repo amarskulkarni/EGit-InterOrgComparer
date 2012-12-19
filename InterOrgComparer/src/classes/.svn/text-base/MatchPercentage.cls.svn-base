@@ -1,0 +1,116 @@
+/*  Class to calculate match percentage for Quick and Detailed Comparison
+ *  
+ *  Revision History: 
+ *  
+ *  Version         Author              Date                Description 
+ *  1.0            Amol Chaudhari      29/11/2012          Intial Draft 
+ */
+global with sharing class MatchPercentage {
+    
+    global string selfOrgUser{get;set;}                                    //self SFDC org username
+    global string targetOrgUser{get;set;}                                  //remote SFDC org username
+    global final string INTER_ORG_ORGUSERNAME = 'esplInterOrgUserName';    //cookie name username
+    
+    //Inner class for match percentage of object comparison
+	global class TargetObjectPercentage{
+		Double matchPercentage;
+		Double noMatchPercentage;
+	}
+	
+	//constructor which will assign the corresponding values of self and target SFDC orgs
+	public MatchPercentage(){
+		Cookie Inter_org_orgUserName = ApexPages.currentPage().getCookies().get(INTER_ORG_ORGUSERNAME);
+		selfOrgUser =  Userinfo.getUserName();
+		if(Inter_org_orgUserName!=null)
+		    targetOrgUser = Inter_org_orgUserName.getValue();
+	}
+		
+	//Method which calculates match percentage for object level comparison - Quick Comparison
+    @RemoteAction
+    global static Double calculateObjectMatchPercentage(){      
+    	 //variables to store the matching counts for calculating overall match percentage in turn.
+    	 double yesCount = 0.0;
+    	 double noCount = 0.0;
+    	 double yesCountPercentage = 0.0;
+    	 //getting the list of Matching target objects from custom object Object Information
+         list<Object_Information__c> lstTargetMatchObjectInfo = [select Id,API_Name__c
+		    	                                                from Object_Information__c
+		    	                                                where Comparison_Source__c!=null];
+		 system.debug('lstTargetMatchObjectInfo.....'+lstTargetMatchObjectInfo.size());   	           
+		 //set for matching target Id's
+		 set<Id> setMatchingTargetIds = new set<Id>();
+		 //creating the set if Id's
+		 for(Object_Information__c objMatchingTargetId : lstTargetMatchObjectInfo){
+		 	setMatchingTargetIds.add(objMatchingTargetId.Id);
+		 }
+		 system.debug('setMatchingTargetIds.....'+setMatchingTargetIds.size());
+		 
+		 //list of all Comparison Log of matching Target Id's
+		 list<Comparison_Log__c> lstMatchingCompLog = [select Attribute__c,
+		                                                     Match__c,
+		                                                     ComparisonType__c,
+		                                                     Object__c,
+		                                                     SourceObject__c,
+		                                                     TargetObject__c
+		                                                     from Comparison_Log__c
+		                                                     where ComparisonType__c='Object Comparison'
+		                                                     and Object__c IN: setMatchingTargetIds];
+		  system.debug('lstMatchingCompLog.....'+lstMatchingCompLog.size()); 
+		  
+		  map<Id,list<Comparison_Log__c>> mapMatchingCompLog = new map<Id,list<Comparison_Log__c>>();
+		  
+		  //mapping the matching objects with corresponding comparison log
+		  if(!lstMatchingCompLog.isEmpty()){
+			  for(Comparison_Log__c objCompLog : lstMatchingCompLog){
+			  	if(!(mapMatchingCompLog.containsKey(objCompLog.Object__c))){
+			  		List<Comparison_Log__c> lstFI = new List<Comparison_Log__c>();
+		          	lstFI.add(objCompLog);
+		          	mapMatchingCompLog.put(objCompLog.Object__c, lstFI);
+			  	}else{
+			  		mapMatchingCompLog.get(objCompLog.Object__c).add(objCompLog);
+			  	}
+			  }
+		  }
+		  
+		  system.debug('mapMatchingCompLog.....'+mapMatchingCompLog.size()); 
+		  set<Id> setNoMatchCount = new set<Id>();
+		  
+		  //set of Id's who have single Match as NO in comp log
+		  if(mapMatchingCompLog!=null){
+		  	 for(Id objTargetMatchingId : mapMatchingCompLog.keySet()){
+		  	 	 for(Comparison_Log__c objComparisonLog1:mapMatchingCompLog.get(objTargetMatchingId)){
+		  	 	 	if(objComparisonLog1.Match__c.trim().toLowerCase().compareTo(system.Label.No_String) == 0){
+		  	 	 		setNoMatchCount.add(objComparisonLog1.Object__c);
+		  	 	 	}
+		  	 	 }
+		  	 }
+		  }
+		  system.debug('setNoMatchCount.....'+setNoMatchCount.size());
+		  noCount =  setNoMatchCount.size();
+		  
+		  list<Comparison_Log__c> lstNotMatchedObj = [select Id 
+		                                                  from Comparison_Log__c
+		                                                  where Attribute__c =: MetadataComparerHelper.NO_FIELDS_MATCH_FOUND];                                                  
+		  system.debug('lstNotMatchedObj.....'+lstNotMatchedObj.size());
+		  
+		  if(!lstNotMatchedObj.isEmpty()){
+		  	  noCount =  noCount + lstNotMatchedObj.size();
+		  }
+		  
+		  system.debug('noCount.....'+noCount);
+		  
+		  list<Object_Information__c> lstTotalObj = [select Id 
+		                                                  from Object_Information__c
+		                                                  where Id != null];
+		                                                  
+		
+		  	yesCount = (lstTargetMatchObjectInfo.size()+lstNotMatchedObj.size()) - noCount;
+		  
+		  
+		  system.debug('yesCount.....'+yesCount);
+		  yesCountPercentage = ((yesCount * 100)/(yesCount+noCount));
+		  system.debug('yesCountPercentage.....'+yesCountPercentage);
+		   
+		  return yesCountPercentage;                                     
+    }	
+}

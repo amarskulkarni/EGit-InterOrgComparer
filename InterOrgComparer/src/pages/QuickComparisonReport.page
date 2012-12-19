@@ -1,0 +1,313 @@
+<!-- VF Page - VF Report for showing the Quick Comparison of all the SObjects from source and
+*              target SFDC org's
+*  Revision History:
+*  Version             Author                  Date                Description
+*  1.0               Amol Chaudhari          28/11/2012           Initial Draft 
+-->
+<apex:page sidebar="false" tabStyle="Quick_Comparison__tab" Title="Quick Comparison Report"
+controller="QuickComparisonReportController">
+  
+<apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/Compare.css')}"/>
+<apex:sectionHeader id="header" title="Quick Comparison" /> 
+		<apex:outputLabel value="{!batchProgressInfo}" id="batchProgressInfo"
+			rendered="{!isBatchRunning}" style="color:Gray;font-weight:bold" />
+		<apex:outputLabel value="{!batchFailed}" rendered="{!isBatchFailed}"
+			style="color:Gray;font-weight:bold" />
+<apex:outputLabel value="{!$Label.No_Quick_Comparison_Metadata_Report}" rendered="{!!isQuickReport}" style="color:gray;font-weight:bold"/>
+<apex:form rendered="{!isReportVisible}">
+<apex:outputLink value="{!urlToExport}" target="_self" title="Export To Excel" style="float:right;margin-right:20px;"> 
+		<apex:image value="{!URLFOR($Resource.InterOrgComparerResources, 'img/ExportToExcel.png')}">
+	 </apex:image> 
+	</apex:outputLink> 
+<br/><br/>
+			<apex:pageBlock >
+			<div style="width: 1300px;height:500px; overflow: scroll">
+				<table cellpadding="4" border="1px solid" cellspacing="0">
+					<tr>
+						<th rowspan="2" bgcolor="#99CCFF" class="headersCenterBold">{!$label.Sr_No}</th>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Label__c.label}</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.API_Name__c.label}</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Key_Prefix__c.label}</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Plural_Label__c.label}</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Chatter_Feed_Enabled__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Custom_Object__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Custom_Setting__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Createable__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Deletable__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Undeletable__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Updateable__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Deprecated__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Mergeable__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Queryable__c.label}?</td>
+						<td colspan="3" class = "headersCenterBold"
+							bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Searchable__c.label}?</td>
+				
+					</tr>
+					<tr>
+					<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td  class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Source}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Target}</td>
+						<td class="headersBold"
+							bgcolor="#99CCFF">{!$label.Match}</td>
+					</tr> 
+					<apex:repeat value="{!comparisonLogList}" var="objComparison"> 
+						<tr>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.srNo}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.sourceLabel}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.targetLabel}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchLabel}"
+									styleclass="{!IF(objComparison.matchLabel=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:outputLabel value="{!objComparison.sourceAPIName}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.targetAPIName}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchAPIName}"
+									styleclass="{!IF(objComparison.matchAPIName=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:outputLabel value="{!objComparison.sourceKeyPrefix}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.targetKeyPrefix}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchKeyPrefix}"
+									styleclass="{!IF(objComparison.matchKeyPrefix=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:outputLabel value="{!objComparison.sourcePluralLabel}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.targetPluralLabel}"></apex:outputLabel>
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchPluralLabel}"
+									styleclass="{!IF(objComparison.matchPluralLabel=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourcechatterFeedEnabled}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourcechatterFeedEnabled}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetchatterFeedEnabled}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetchatterFeedEnabled}" /></td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchchatterFeedEnabled}"
+									styleclass="{!IF(objComparison.matchchatterFeedEnabled=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceCustomObject}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceCustomObject}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetCustomObject}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetCustomObject}" /></td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchCustomObject}"
+									styleclass="{!IF(objComparison.matchCustomObject=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceCustomSetting}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceCustomSetting}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetCustomSetting}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetCustomSetting}" /></td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchCustomSetting}"
+									styleclass="{!IF(objComparison.matchCustomSetting=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceCreateable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceCreateable}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetCreateable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetCreateable}" />
+									</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchCreateable}"
+									styleclass="{!IF(objComparison.matchCreateable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceDeletable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceDeletable}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetdeletable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetdeletable}" />
+									</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchDeletable}"
+									styleclass="{!IF(objComparison.matchDeletable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceUndeletable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceUndeletable}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetUndeletable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetUndeletable}" /></td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchUndeletable}"
+									styleclass="{!IF(objComparison.matchUndeletable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceUpdateable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceUpdateable}" /></td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetUpdateable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{{!objComparison.targetUpdateable}" /></td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchUpdateable}"
+									styleclass="{!IF(objComparison.matchUpdateable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceDeprecated}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceDeprecated}" />
+							</td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetdeprecated}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetdeprecated}" />
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchDeprecated}"
+									styleclass="{!IF(objComparison.matchDeprecated=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceMergeable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceMergeable}" />
+							</td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetMergeable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetMergeable}" />
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchMergeable}"
+									styleclass="{!IF(objComparison.matchMergeable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceQueryable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceQueryable}" />
+							</td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetQueryable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetQueryable}" />
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchQueryable}"
+									styleclass="{!IF(objComparison.matchQueryable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.sourceSearchable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.sourceSearchable}" />
+							</td>
+							<td class = "headers"><apex:image value="/img/checkbox_checked.gif"
+									rendered="{!objComparison.targetSearchable}" /> <apex:image value="/img/checkbox_unchecked.gif"
+									rendered="{!!objComparison.targetSearchable}" />
+							</td>
+							<td class = "headers"><apex:outputLabel value="{!objComparison.matchSearchable}"
+									styleclass="{!IF(objComparison.matchSearchable=='Yes','green','red')}"></apex:outputLabel>
+							</td>
+						</tr>
+					</apex:repeat>
+					</table>
+					</div>
+					</apex:pageBlock>
+</apex:form>
+</apex:page>

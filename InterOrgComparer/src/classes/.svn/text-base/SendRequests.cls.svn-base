@@ -1,0 +1,202 @@
+/* SendRequests -  http callouts to the SOAP API and getting the sessionId 
+                   and serverUrl
+*  Revision History:
+*
+*  Version             Author                  Date                Description
+*  1.0                 Amol Chaudhari          26/09/2012          Initial Draft 
+*/
+public with sharing class SendRequests {
+    private static string enviromentSandbox = 'Sandbox';    //variable to comapare if sandbox
+	private static string enviromentDevORProd = 'Developer/Production'; //variable to comapare if dev/prod
+	private static string METHOD_POST = 'POST';       //http callout method
+	//string required for making http callouts
+	private final string CONTENT_TYPE = 'Content-type';
+	private final string TEXT_XML = system.label.text_xml;
+	private final string SOAP_ACTION ='SoapAction';
+	private final string METHOD_GET = 'GET';
+	private final string AUTHORIZATION = 'Authorization';
+	private final string BEARER = 'Bearer';
+    private final string HTTPS = system.label.https;
+	private final string SOAP = 'Soap/';
+	//Soap url's for getting the metadata from remote org
+	private final string SOAP_URL_OBJECTS = 'data/v25.0/sobjects/';
+	private final string SOAP_URL_VERSION = 'data/v25.0/';
+	private final string DESCRIBE_OBJECT = '/describe/';
+	private final string SESSION_ID_START_TAG = '<sessionId>';
+	private final string SESSION_ID_END_TAG = '</sessionId>';
+	private final string SERVER_URL_START_TAG = '<serverUrl>';
+	private final string SERVER_URL_END_TAG = '</serverUrl>';
+	private final string USERFULLNAME_START_TAG = '<userFullName>';
+	private final string USERFULLNAME_END_TAG = '</userFullName>';
+	private final string ORGANIZATION_ID_START_TAG = '<organizationId>';
+	private final string ORGANIZATION_ID_END_TAG = '</organizationId>';
+	private final string ORGANIZATION_NAME_START_TAG = '<organizationName>';
+	private final string ORGANIZATION_NAME_END_TAG = '</organizationName>';
+	private final string ORGANIZATION_USERNAME_START_TAG = '<userName>';
+	private final string ORGANIZATION_USERNAME_END_TAG = '</userName>';
+
+//calling the method for callouts depends upon the Org instance selection, getting the http response
+public LoginResponse login(string username, string password, string securityToken, string enviroment){
+	LoginResponse loginResponse;
+	if(enviroment.equalsIgnoreCase(enviromentSandbox)){
+	    loginResponse = sendRequest(ConnectionUtility.TEST_URL,
+                                        ConnectionUtility.getLoginSoapAction(), 
+                                           ConnectionUtility.getLoginSoapBody(username, 
+                                              password, securityToken));
+	}
+	 
+	if(enviroment.equalsIgnoreCase(enviromentDevORProd)){
+	    loginResponse = sendRequest(ConnectionUtility.LOGIN_URL,
+                                        ConnectionUtility.getLoginSoapAction(), 
+                                           ConnectionUtility.getLoginSoapBody(username, 
+                                              password, securityToken));
+	}
+	system.debug('loginResponse....'+loginResponse);
+	return loginResponse;
+} 
+
+//http callouts to get connected to remote SFDC org, return login response
+public LoginResponse sendRequest(string url, string header, string body){
+ 	Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    HttpResponse res = new HttpResponse();
+    //setting the http callout method as post
+    req.setMethod(METHOD_POST);
+    //setting the soap url as endpoint to to http request
+    req.setEndPoint(url); 
+    req.setHeader(CONTENT_TYPE,TEXT_XML);
+    req.setHeader(SOAP_ACTION,header);
+    req.setBody(body); 
+    LoginResponse loginresponse = new LoginResponse();
+    //sending the requst to get the login response and sessionId of remote org
+    res = h.send(req);
+    loginresponse.result = res.getBody();
+    system.debug('-------------------res.getBody()'+(res.getBody()));
+    loginresponse.status=res.getStatus();
+    loginresponse.statusCode=res.getStatusCode(); 
+    if(res.getStatusCode()==200){
+    	loginresponse.sessionId = loginresponse.result.substring(
+    	                            loginresponse.result.indexOf(SESSION_ID_START_TAG)+11, 
+    	                              loginresponse.result.indexOf(SESSION_ID_END_TAG));
+	    loginresponse.serverUrl = loginresponse.result.substring(
+	                                loginresponse.result.indexOf(SERVER_URL_START_TAG)+11, 
+	                                  loginresponse.result.indexOf(SERVER_URL_END_TAG));
+	 	loginresponse.userName = loginresponse.result.substring(
+	 	                            loginresponse.result.indexOf(USERFULLNAME_START_TAG)+14, 
+	 	                               loginresponse.result.indexOf(USERFULLNAME_END_TAG));
+        loginresponse.orgId = loginresponse.result.substring(
+                                    loginresponse.result.indexOf(ORGANIZATION_ID_START_TAG)+16, 
+                                        loginresponse.result.indexOf(ORGANIZATION_ID_END_TAG));
+        loginresponse.orgName = loginresponse.result.substring(
+                                    loginresponse.result.indexOf(ORGANIZATION_NAME_START_TAG)+18, 
+                                        loginresponse.result.indexOf(ORGANIZATION_NAME_END_TAG));
+        loginresponse.orgUserName = loginresponse.result.substring(
+                                    loginresponse.result.indexOf(ORGANIZATION_USERNAME_START_TAG)+10, 
+                                        loginresponse.result.indexOf(ORGANIZATION_USERNAME_END_TAG));                                                                 
+                                        
+    }else{
+    	loginresponse.isError = true;
+    }
+ 	return loginresponse; 
+}
+
+//Soap request to get the all object's metadata of remote org, returns instance of RestResponse class 
+public RestResponse sendMetadataRequest(string pSessionId, string pServerUrl){
+ 	RestResponse restResponse = new RestResponse();
+ 	pServerUrl= pServerUrl.substring(pServerUrl.indexOf(HTTPS), pServerUrl.indexOf(SOAP));
+ 	pServerUrl = pServerUrl+SOAP_URL_OBJECTS;
+ 	system.debug('serverUrl...: '+pServerUrl);
+ 	Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    HttpResponse res = new HttpResponse();
+    req.setMethod(METHOD_GET);
+    req.setEndpoint(pServerUrl);
+    req.setHeader(CONTENT_TYPE,TEXT_XML);
+  //req.setHeader(AUT,'Bearer '+sessionId);
+    req.setHeader(AUTHORIZATION,BEARER+' '+pSessionId);
+    res = h.send(req);
+    system.debug('METADATA: '+res);   
+    system.debug('METADATA_body: '+res.getBody());
+    if(res.getStatusCode() == 200){
+	    restResponse.status=res.getStatus();
+	    restResponse.statusCode=res.getStatusCode();
+	    restResponse.rest_response_body = res.getBody();
+    } 
+ 	return restResponse; 
+ }
+
+//checking for if sessionId is still valid or not by making soap request, returning RestResponse 
+public RestResponse CheckForValidSessionId(string pSessionId, string pServerUrl){
+    RestResponse restResponse = new RestResponse();
+ 	pServerUrl= pServerUrl.substring(pServerUrl.indexOf(HTTPS), pServerUrl.indexOf(SOAP));
+ 	pServerUrl = pServerUrl+SOAP_URL_VERSION;
+ 	system.debug('serverUrl...: '+pServerUrl);
+ 	Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    HttpResponse res = new HttpResponse();
+    req.setMethod(METHOD_GET);
+    req.setEndpoint(pServerUrl);
+    req.setHeader(CONTENT_TYPE,TEXT_XML);
+     req.setHeader(AUTHORIZATION,BEARER+' '+pSessionId);
+    res = h.send(req);
+    system.debug('METADATA: '+res);   
+    system.debug('METADATA_body: '+res.getBody());
+    if(res.getStatusCode() == 200){
+	    restResponse.status=res.getStatus();
+	    restResponse.statusCode=res.getStatusCode();
+	    restResponse.rest_response_body = res.getBody();
+    } 
+ 	return restResponse; 
+}
+
+//soap request to get the metadata for the list of all available Sobjects in the remote org
+public RestResponse getSobjectlist(string pSessionId, string pServerUrl){
+ 	RestResponse restResponse = new RestResponse();
+ 	pServerUrl= pServerUrl.substring(pServerUrl.indexOf(HTTPS), pServerUrl.indexOf(SOAP));
+ 	pServerUrl = pServerUrl+SOAP_URL_OBJECTS;
+ 	system.debug('serverUrl...: '+pServerUrl);
+ 	Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    HttpResponse res = new HttpResponse();
+    req.setMethod(METHOD_GET);
+    req.setEndpoint(pServerUrl);
+    req.setHeader(CONTENT_TYPE,TEXT_XML);
+    req.setHeader(AUTHORIZATION,BEARER+' '+pSessionId);
+    res = h.send(req);
+    system.debug('METADATA: '+res);   
+    system.debug('METADATA_body: '+res.getBody());
+    if(res.getStatusCode() == 200){
+	    restResponse.status=res.getStatus();
+	    restResponse.statusCode=res.getStatusCode();
+	    restResponse.rest_response_body = res.getBody();
+    } 
+ 	return restResponse; 
+ }
+
+ //soap request to get the detailed metadata of perticular object of remote org, returning RestResponse instance 
+ public RestResponse getObjectMetadata(string pSessionId, string pServerUrl, string pSobject){
+ 	
+ 	RestResponse restResponse = new RestResponse();
+ 	pServerUrl= pServerUrl.substring(pServerUrl.indexOf(HTTPS), pServerUrl.indexOf(SOAP));
+ 	pServerUrl = pServerUrl+SOAP_URL_OBJECTS+pSobject+DESCRIBE_OBJECT;
+ 	system.debug('pServerUrl...: '+pServerUrl);
+ 	system.debug('pSessionId...: '+pSessionId);
+ 	Http h = new Http();
+    HttpRequest req = new HttpRequest();
+    HttpResponse res = new HttpResponse();
+    req.setMethod(METHOD_GET);
+    req.setEndpoint(pServerUrl);
+    req.setHeader(CONTENT_TYPE,TEXT_XML);
+    req.setHeader(AUTHORIZATION,BEARER+' '+pSessionId);
+    res = h.send(req);
+    system.debug('METADATA: '+res);   
+    system.debug('METADATA_body: '+res.getBody());
+    if(res.getStatusCode() == 200){
+	    restResponse.status=res.getStatus();
+	    restResponse.statusCode=res.getStatusCode();
+	    restResponse.rest_response_body = res.getBody();
+    }
+ 	return restResponse; 
+ }
+ 
+}

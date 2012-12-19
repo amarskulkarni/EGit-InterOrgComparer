@@ -1,0 +1,93 @@
+/*  Class which serves the purpose of constructing the email message body depending on the
+ *  completion status of apex batch
+ *
+ *	Revision History: 
+ *	
+ *	Version			Author				Date				Description 
+ *	1.0			  Amol Chaudhari	   29/11/2012			Intial Draft 
+ */
+ 
+public with sharing class EmailManagerHelper {
+	//Method which returns the email message body for full object metadata report
+	public static String getQuickComparisonMessageBody(String pCompletionStatus){
+		String emailMessageBody='';
+		
+		if(pCompletionStatus.compareTo(system.Label.Success_String) == 0){
+			emailMessageBody = '<html><head></head><body>Hi, <br/><br/>The Quick Comparison of your orgs'+ 
+			+' metadata has been completed. Please click on the following link to see the report.'+
+			+'<br/><a href = ' + '"'+ getQuickReportLink() + '"' + '>Quick Comparison Report link</a>'+
+			+'<br/><a href = ' + '"' + getObjectComparisonDashboardLink() + '"' + '>Object comparison metadata dashboard link</a>'+ 
+			+'<br/><br/> Thank you,<br/>Eternus Solutions.</body></html>';
+		}
+		else if(pCompletionStatus.compareTo(system.Label.Encountered_Problem_String) == 0){
+			emailMessageBody = '<html><head></head><body>Hi, <br/><br/>An error has occurred while '+ 
+			+'processing your request. We apologize for the inconvience.'+
+			+'<br/><br/> Thank you,<br/>Eternus Solutions.</body></html>';
+		}else{
+			if(pCompletionStatus.equalsIgnoreCase('')||pCompletionStatus==null){
+				emailMessageBody = '<html><head></head><body>Hi, <br/><br/>The Quick Comparison of your orgs'+ 
+				+' metadata has been completed. Please click on the following link to see the report.'+
+				+'<br/><a href = ' + '"'+ getQuickReportLink() + '"' + '>Quick Comparison Report link</a>'+
+				+'<br/><a href = ' + '"' + getObjectComparisonDashboardLink() + '"' + '>Object comparison metadata dashboard link</a>'+ 
+				+'<br/><br/> Thank you,<br/>Eternus Solutions.</body></html>';
+			}else{
+				emailMessageBody = '<html><head></head><body>Hi, <br/><br/>The Quick Comparison of your orgs'+ 
+				+'metadata has been completed. Please click on the following link to see the report.'+
+				+'<br/><a href = ' + '"'+ getQuickReportLink() + '"' + '>Quick Comparison Report link<</a>'+
+				+'<br/><a href = ' + '"' + getObjectComparisonDashboardLink() + '"' + '>Object comparison metadata dashboard link</a>'+ 
+			    +'<br/><br/>Note:<br/>'+pCompletionStatus+' objetct\'s  could not be compared due to salesforce data storage governer limit.</body></html>'+'<br/><br/> Thank you,<br/>Eternus Solutions.</body></html>';
+			} 
+		
+		}
+		
+		return emailMessageBody;
+	}
+	
+	//Method which returns the email message body for object comparison report
+	public static String getObjectComparisonReportMessageBody(String pCompletionStatus){
+		String emailMessageBody='';
+		
+		if(pCompletionStatus.compareTo(system.Label.Success_String) == 0){
+			emailMessageBody = '<html><head></head><body>Hi, <br/><br/>Comparison between objects '+
+			+'is completed successfully. Please click on the following links to see the report and dashboard.'+
+			+'<br/><a href = ' + '"' + getDetailedReportLink() + '"' + '>Object comparison metadata report link</a>'+
+			+'<br/><a href = ' + '"' + getObjectComparisonDashboardLink() + '"' + '>Object comparison metadata dashboard link</a>'+ 
+			+'<br/><br/> Thank you,<br/>Eternus Solutions.</body></html>';
+		}
+		else if(pCompletionStatus.compareTo(system.Label.Encountered_Problem_String) == 0){
+			emailMessageBody = '<html><head></head><body>Hi, <br/><br/>An error has occurred while '+ 
+			+'processing your request. We apologize for the inconvience.'+
+			+'<br/><br/> Thank you,<br/>Eternus Solutions.</body></html>';
+		}
+		
+		return emailMessageBody; 
+	}
+	
+	//Method which returns dashboard link
+	private static String getObjectComparisonDashboardLink(){
+		List<Dashboard> dashboardList = [select Id from Dashboard where DeveloperName =: system.Label.Quick_Comparison_Dashboard limit 1];
+		
+		if(!dashboardList.isEmpty()){
+			String dashboardRecordId = String.valueOf(dashboardList[0].Id);
+        	dashboardRecordId = dashboardRecordId.substring(0, dashboardRecordId.length() - 3);      //Convert 18 digit Id to 15 digit
+			return System.URL.getSalesforceBaseUrl().toExternalForm() + '/' + dashboardRecordId;
+		}
+		return null;
+	}
+	
+	//Method which returns visualforce page link for viewing full object metadata report
+	public static String getQuickReportLink(){
+		return System.URL.getSalesforceBaseUrl().toExternalForm()+'/apex/'+System.Label.Redirect_QuickReport; 
+	}
+	
+	public static String getDetailedReportLink(){
+		return System.URL.getSalesforceBaseUrl().toExternalForm()+'/apex/'+System.Label.Redirect_DetailedReport; 
+	}
+	
+	
+	//Method which returns visualforce page link for viewing object comparison report
+	private static String getObjectComparisonReportLink(){
+	    return System.URL.getSalesforceBaseUrl().toExternalForm()+'/apex/'+System.Label.Org_Namespace+System.Label.Redirect_MetadataComparisionReport; 
+	}
+
+}

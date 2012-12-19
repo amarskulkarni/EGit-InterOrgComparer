@@ -1,0 +1,173 @@
+<!-- Component which will be embeded in tab panel for Child Relationshisp Level metadata Comparison in Detail Comparison
+<!-- *  Revision History: -->
+<!-- *  Version             Author              Date                Description -->
+<!-- *  1.0                Amol Chaudhari      06/12/2012          Intial Draft -->
+<apex:component controller="ChildComparisonComponentController">
+    <body>
+        <apex:form id="frmField">
+            <apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/compare.css')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/SnapItMetadataXplorerStyle.css')}" />
+            <table>
+                <tr>
+                    <td><apex:outputlabel value="{!$Label.Source_Object}" style="font-weight:bold;"
+                            styleClass="fontSelectBold" />
+                    </td>
+                    <td><apex:selectList id="sourceObject"
+                            styleClass="generalNormalLogin" value="{!sourceObjectName}"
+                            size="1">
+                            <apex:actionSupport event="onchange"
+                                action="{!matchingTargetObjects}" status="loadingStatus1"
+                                rerender="targetObject" />
+                            <apex:selectOptions value="{!sourceObjectList}" />
+                        </apex:selectList>
+                    </td>
+                    <td><apex:outputlabel style="margin-left: 25px;font-weight:bold;"  value="{!$Label.Target_Object}"
+                            styleClass="fontSelectBold" />
+                    </td>
+                    <td><apex:selectList id="targetObject"
+                            styleClass="generalNormalLogin" value="{!targetObjectName}"
+                            size="1">
+                            <apex:selectOptions value="{!targetObjectList}" />
+                        </apex:selectList>
+                    </td>
+                    <td><apex:actionStatus id="loadingStatus1"
+                            onstart="document.body.style.cursor='wait';return true;"
+                            onStop="document.body.style.cursor='default';return true;"
+                            startStyleClass="generalNormal">
+                            <apex:facet name="start">
+                                <center>
+                                    <img src="/img/loading.gif" />&nbsp;
+                                </center>
+                            </apex:facet>
+                            <apex:facet name="stop" />
+                        </apex:actionStatus>
+                    </td>
+                    <td><apex:commandButton style="margin-left: 25px;" value="{!$Label.Show_Report}"
+                            action="{!childMetadataComparison}" status="loadingStatus"
+                            rerender="frmField" styleClass="fontSelectBold" />
+                    </td>
+                    <td><apex:actionStatus id="loadingStatus"
+                            onstart="document.body.style.cursor='wait';return true;"
+                            onStop="document.body.style.cursor='default';return true;"
+                            startStyleClass="generalNormal">
+                            <apex:facet name="start">
+                                <center>
+                                    <img src="/img/loading.gif" />&nbsp;Processing...
+                                </center>
+                            </apex:facet>
+                            <apex:facet name="stop" />
+                        </apex:actionStatus>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <apex:outputPanel id="childComparisonTable">
+                <div style="width: 1300px; max-height: 450px; overflow: scroll">
+                    <table cellpadding="4" border="1" cellspacing="0">
+                        <tr>
+                            <th rowspan="2" bgcolor="#99CCFF" class="headersCenterBold">{!$label.Sr_No}</th>
+                            <td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Child_Object__c.label}</td>
+                            <td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Relationship_Name__c.label}</td>
+                            <td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Relationship_FieldName__c.label}</td>
+                            <td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Type__c.label}</td>
+                            <td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.isDeprecatedAndHidden__c.label}?</td>
+                            <td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.isRestrictedDelete__c.label}?</td>
+                        </tr>
+                        <tr>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Source}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Target}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Match}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Source}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Target}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Match}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Source}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Target}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Match}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Source}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Target}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Match}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Source}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Target}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Match}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Source}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Target}</td>
+                            <td class="headersCenterBold" bgcolor="#99CCFF">{!$label.Match}</td>
+                        </tr>
+
+                        <apex:repeat value="{!childComparisonLogList}"
+                            var="childComparison">
+                            <tr>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.srNo}"></apex:outputLabel></td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.sourceChildChildObject}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.targetChildChildObject}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.matchChildChildObject}"
+                                        styleclass="{!IF(childComparison.matchChildChildObject=='Yes','green','red')}"></apex:outputLabel>
+                                </td>
+
+                                <td class="headers"><apex:outputLabel value="{!childComparison.sourceChildRelationshipName}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.targetChildRelationshipName}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.matchChildRelationshipName}"
+                                        styleclass="{!IF(childComparison.matchChildRelationshipName=='Yes','green','red')}"></apex:outputLabel>
+                                </td>
+
+                                <td class="headers"><apex:outputLabel value="{!childComparison.sourceChildRelationshipFieldName}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.targetChildRelationshipFieldName}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.matchChildRelationshipFieldName}"
+                                        styleclass="{!IF(childComparison.matchChildRelationshipFieldName=='Yes','green','red')}"></apex:outputLabel>
+                                </td>
+
+                                <td class="headers"><apex:outputLabel value="{!childComparison.sourceChildRelationshipType}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.targetChildRelationshipType}"></apex:outputLabel>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.matchChildRelationshipType}"
+                                        styleclass="{!IF(childComparison.matchChildRelationshipType=='Yes','green','red')}"></apex:outputLabel>
+                                </td>
+
+                                <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                        rendered="{!childComparison.sourceChildIsDeprecatedAndHidden}"></apex:image>
+                                    <apex:image value="/img/checkbox_unchecked.gif"
+                                        rendered="{!!childComparison.sourceChildIsDeprecatedAndHidden}"></apex:image>
+                                </td>
+                                <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                        rendered="{!childComparison.targetChildIsDeprecatedAndHidden}"></apex:image>
+                                    <apex:image value="/img/checkbox_unchecked.gif"
+                                        rendered="{!!childComparison.targetChildIsDeprecatedAndHidden}"></apex:image>
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.matchChildIsDeprecatedAndHidden}"
+                                        styleclass="{!IF(childComparison.matchChildIsDeprecatedAndHidden=='Yes','green','red')}"></apex:outputLabel>
+                                </td>
+
+
+                                <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                        rendered="{!childComparison.sourceChildIsRestrictedDelete}"></apex:image>
+                                    <apex:image value="/img/checkbox_unchecked.gif"
+                                        rendered="{!!childComparison.sourceChildIsRestrictedDelete}"></apex:image>   
+                                </td>
+                                <td class="headers"><apex:image value="/img/checkbox_checked.gif"
+                                        rendered="{!childComparison.targetChildIsRestrictedDelete}"></apex:image>
+                                    <apex:image value="/img/checkbox_unchecked.gif"
+                                        rendered="{!!childComparison.targetChildIsRestrictedDelete}"></apex:image>                                   
+                                </td>
+                                <td class="headers"><apex:outputLabel value="{!childComparison.matchChildIsRestrictedDelete}"
+                                        styleclass="{!IF(childComparison.matchChildIsRestrictedDelete=='Yes','green','red')}"></apex:outputLabel>
+                                </td>
+
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel id="childEmpty"
+                rendered="{!isChildComparisonLogEmpty}">
+                <apex:outputLabel value="{!$Label.No_Childs_Relationships_Present}" />
+            </apex:outputPanel>
+        </apex:form>
+    </body>
+</apex:component>

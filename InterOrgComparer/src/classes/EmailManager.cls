@@ -1,0 +1,130 @@
+/*  Class to send email notification to intended recipients after completion of execution of apex job
+ *	
+ *	Revision History: 
+ *	
+ *	Version			Author				Date				Description 
+ *	1.0			 Amol Chaudhari		  29/11/2012			Intial Draft 
+ */
+ 
+public with sharing class EmailManager {
+	private static String completionStatus;
+	
+	public static void sendMail(String pCompletionStatus, String pReport){
+		if(pReport.equalsIgnoreCase('Quick Comparison'))
+		     sendEmailOnCompletionOfQuickComparisonReport(pCompletionStatus);
+		else
+		     sendEmailOnCompletionOfObjectComparisonReport(pCompletionStatus);     
+	}
+	
+	//Method to send email on completion of the extraction of full object metadata report
+	public static void sendEmailOnCompletionOfQuickComparisonReport(String pCompletionStatus){
+		
+		if(pCompletionStatus.compareTo(system.Label.Encountered_Problem_String) == 0){		
+			completionStatus = pCompletionStatus;	    	
+    		List<Messaging.SingleEmailMessage> emailMessageList = new List<Messaging.SingleEmailMessage>();        
+	    	Messaging.SingleEmailMessage emailMessage = new Messaging.SingleEmailMessage();
+	    	List<String> recipientEmailList = getRecipientEmailAddress();
+	        emailMessage.setSenderDisplayName(system.Label.Salesforce_Administrator_String); 	        
+	        emailMessage.setSubject(system.Label.Eternus_Quick_Report_Subject + ' ' + completionStatus); 
+	        emailMessage.setHtmlBody(EmailManagerHelper.getQuickComparisonMessageBody(completionStatus)); 
+	    	emailMessage.setToAddresses(recipientEmailList);
+	    	emailMessage.setSaveAsActivity(false);
+	    	emailMessageList.add(emailMessage);
+	        
+	    	try{
+	        	Messaging.sendEmail(emailMessageList);	
+			}
+			catch(Exception genException){
+				//system.debug('Exception:'+genException);
+				ExceptionManager.logError(system.now(), genException.getMessage(), UserInfo.getUserId());
+			}
+	 	}
+	 	else{
+	 		 completionStatus = pCompletionStatus;    	 		
+	 		List<Messaging.SingleEmailMessage> emailMessageList = new List<Messaging.SingleEmailMessage>();        
+	    	Messaging.SingleEmailMessage emailMessage = new Messaging.SingleEmailMessage();
+	    	List<String> recipientEmailList = getRecipientEmailAddress();
+	        emailMessage.setSenderDisplayName(system.Label.Salesforce_Administrator_String);
+	        emailMessage.setSubject(system.Label.Eternus_Quick_Report_Subject + 'Success');
+	        emailMessage.setHtmlBody(EmailManagerHelper.getQuickComparisonMessageBody(completionStatus)); 
+	    	emailMessage.setToAddresses(recipientEmailList);
+	    	emailMessage.setSaveAsActivity(false);
+	    	emailMessageList.add(emailMessage);
+	    	try{
+	        	Messaging.sendEmail(emailMessageList);	
+			}
+			catch(Exception genException){
+				//system.debug('Exception:'+genException);
+				ExceptionManager.logError(system.now(), genException.getMessage(), UserInfo.getUserId());
+			} 		
+	 	}
+	}
+	
+	//Method to send email on completion of the object comparison report
+	public static void sendEmailOnCompletionOfObjectComparisonReport(String pCompletionStatus){
+		
+		if(pCompletionStatus.compareTo(system.Label.Encountered_Problem_String) == 0){
+			completionStatus = pCompletionStatus;
+    		List<Messaging.SingleEmailMessage> emailMessageList = new List<Messaging.SingleEmailMessage>();        
+	    	Messaging.SingleEmailMessage emailMessage = new Messaging.SingleEmailMessage();
+	    	List<String> recipientEmailList = getRecipientEmailAddress();
+	        emailMessage.setSenderDisplayName(system.Label.Salesforce_Administrator_String); 
+	        emailMessage.setSubject(system.Label.Eternus_Detailed_Comparison_Report + ' ' + completionStatus); 
+	        emailMessage.setHtmlBody(EmailManagerHelper.getObjectComparisonReportMessageBody(completionStatus)); 
+	    	emailMessage.setToAddresses(recipientEmailList);
+	    	emailMessage.setSaveAsActivity(false);
+	    	emailMessageList.add(emailMessage);
+	        
+	    	try{
+	        	Messaging.sendEmail(emailMessageList);	
+			}
+			catch(Exception genException){
+				system.debug('Exception:'+genException);
+				ExceptionManager.logError(system.now(), genException.getMessage(), UserInfo.getUserId());
+			}
+	 	}
+	 	else{	
+	 		completionStatus = system.Label.Success_String;	 		
+	 		List<Messaging.SingleEmailMessage> emailMessageList = new List<Messaging.SingleEmailMessage>();          
+	    	Messaging.SingleEmailMessage emailMessage = new Messaging.SingleEmailMessage();
+	    	List<String> recipientEmailList = getRecipientEmailAddress();
+	        emailMessage.setSenderDisplayName(system.Label.Salesforce_Administrator_String);
+	        emailMessage.setSubject(system.Label.Eternus_Detailed_Comparison_Report + ' ' + completionStatus);
+	        emailMessage.setHtmlBody(EmailManagerHelper.getObjectComparisonReportMessageBody(completionStatus)); 
+	    	emailMessage.setToAddresses(recipientEmailList);
+	    	emailMessage.setSaveAsActivity(false);
+	    	emailMessageList.add(emailMessage);
+	        
+	    	try{
+	        	Messaging.sendEmail(emailMessageList);	
+			}
+			catch(Exception genException){
+				system.debug('Exception:'+genException);
+				ExceptionManager.logError(system.now(), genException.getMessage(), UserInfo.getUserId());
+			}	 		
+	 	}
+	}
+	
+	//Method used to populate recipient's email address list
+	private static List<String> getRecipientEmailAddress(){
+		
+		//List to hold recipient's email address
+		List<String> recipientEmailList = new List<String>();
+		
+		Batch_Job_Configuration__c batchJobConfigurationCustomSetting = Batch_Job_Configuration__c.getOrgDefaults();
+		
+		if(batchJobConfigurationCustomSetting != null)
+			if(batchJobConfigurationCustomSetting.Email_Address__c != null)
+				recipientEmailList.add(batchJobConfigurationCustomSetting.Email_Address__c);
+			else{
+				User activeUser = [Select Email From User where Id =: UserInfo.getUserId() limit 1];
+	    		String userEmail = activeUser.Email;	    
+	    		recipientEmailList.add(userEmail);				
+			}
+		 
+	    if(!recipientEmailList.isEmpty())
+	    	return recipientEmailList;
+	    	
+	    return null;
+	}
+}

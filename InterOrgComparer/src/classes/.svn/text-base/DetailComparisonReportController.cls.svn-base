@@ -1,0 +1,9 @@
+/*  Controller class which handles the requests related to the Comparison Log report 
+*   for the Detailed Comparison Report    
+*       Revision History: 
+*       Version                         Author                          Date                            Description 
+*       1.0                           Amol Chaudhari                   06/12/2012                      Intial Draft 
+*/
+public with sharing class DetailComparisonReportController {
+
+}

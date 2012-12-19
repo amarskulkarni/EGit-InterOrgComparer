@@ -1,0 +1,76 @@
+<apex:page title="Quick Comparison Dashboard" controller="MatchPercentage" sideBar="false">
+   <html>
+<head>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {
+        'packages' : [ 'corechart' ]
+    });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+		   
+        MatchPercentage.calculateObjectMatchPercentage(function(result, event) {
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+           
+            var v = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
+            
+            data.addRows([ [ '{!$Label.Match_Percentage}', v ], [ '{!$Label.No_Match_Percentage}', 100 - v ], ]);
+
+            // Set chart options
+            var options = {colors:['green','red'],
+                //'title' : '{!$Label.Object_Level_Comparison}',
+                'width' : 550,
+                'height' : 300,
+                'colors': ['#64BB4A','#E03A3E'],
+                'is3D': true,
+                'legend': {
+                    position : 'top',
+                    textStyle : {
+                        color : 'black',
+                        fontSize : 10
+                    }
+                },
+            };
+ 
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document
+                    .getElementById('chart_div'));
+            chart.draw(data, options);
+        });
+    }
+</script>
+</head>
+
+<body>
+   <table>
+   <tr>
+   <td><apex:outputLabel value="Self Org  "  style="font-weight:bold;color:#701125"/></td>
+   <td>:    </td>
+   <td><apex:outputLabel value="{!selfOrgUser}" style="text-decoration:underline"/></td>
+   </tr>
+   <tr>
+   <td><apex:outputLabel value="Target Org  "  style="font-weight:bold;color:#701125"/></td>
+   <td>:    </td>
+   <td><apex:outputLabel value="{!targetOrgUser}" style="text-decoration:underline"/></td>
+   </tr>
+   </table>
+    
+        	<!-- <apex:outputLabel value="Self Org : {!selfOrgUser}"/><br/><br/>
+        	<apex:outputLabel value="Remote Org : {!targetOrgUser}"/>-->
+        	<apex:outputPanel > 
+            	<div id="chart_div" style="float:left"></div>
+            </apex:outputPanel> 
+      </body>
+    </html>
+</apex:page>

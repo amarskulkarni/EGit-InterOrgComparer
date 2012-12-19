@@ -1,0 +1,173 @@
+<!-- VF Login Component - VF Comparer page showing user input model of 2 different orgs
+*  Revision History:
+*  Version             Author                  Date                Description
+*  1.0                 Amol Chaudhari          26/09/2012          Initial Draft 
+-->
+<apex:page controller="InterOrgComparerController" sidebar="false"
+	tabStyle="Generate_Reports__tab" Title="Inter Org Comparer">
+	<head>
+<apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/SnapItMetadataXplorerStyle.css')}" />
+	</head>
+	<apex:sectionHeader id="header" title="Inter Org Comparer" />
+	
+	<apex:form id="form1">
+	<apex:pagemessages id="msgs"></apex:pagemessages>
+		<apex:actionPoller action="{!checkforButtonDisable}" reRender="btnCompare,showInfo,msgs" interval="5"/>
+		<div style="float: right; margin-right: 50px;">
+			<apex:commandLink action="{!logout}" rendered="{!!isloggedin}"
+				style="float:right;">
+				<apex:image value="{!URLFOR($Resource.InterOrgComparerResources, '/img/Logout.png')}"
+					title="Logout {!remoteOrgName}/{!remoteOrgUserName}">
+				</apex:image>
+			</apex:commandLink>
+		</div>
+		<br />
+		<br />
+		<apex:pageblock id="test2">
+			<apex:outputPanel id="radioButtons" rendered="{!isRadioEnabled}">
+				<apex:outputLabel style="font-weight:bold">{!$Label.Select_Comaprison_Type}</apex:outputLabel>
+				<br />
+				<apex:selectRadio id="selectReport" value="{!SelectedObjectReport}"
+					styleClass="generalNormalRadio">
+					&nbsp;&nbsp;<apex:selectOptions value="{!ObjectReportLabel}" />
+					<apex:actionSupport event="onchange" action="{!displayPanel}"
+						reRender="form1" status="radioStatus" />
+				</apex:selectRadio>
+			</apex:outputPanel>
+			<apex:actionStatus id="radioStatus"
+				onstart="document.body.style.cursor='wait';return true;"
+				onStop="document.body.style.cursor='default';return true;"
+				startStyleClass="generalNormal">
+				<apex:facet name="start">
+					<center>
+						<img src="/img/loading.gif" />&nbsp;
+					</center>
+				</apex:facet>
+				<apex:facet name="stop" />
+			</apex:actionStatus>
+			<apex:outputPanel id="userInputModel"
+				rendered="{!isComparisonPanelVisible}">
+				<apex:outputPanel rendered="{!isloggedin}">
+					<apex:pageBlockSection columns="1" title="{!$Label.Login_Details}"
+						collapsible="false">
+
+						<apex:pageblockSectionItem >
+							<apex:outputLabel >{!$Label.Username} <font
+									color="red">*</font>
+							</apex:outputLabel>
+
+							<apex:inputText value="{!userName}" required="true"
+								styleClass="generalNormalLogin" />
+
+						</apex:pageblockSectionItem>
+						<apex:pageblockSectionItem >
+							<apex:outputLabel >{!$Label.Password} <font
+									color="red">*</font>
+							</apex:outputLabel>
+							<apex:inputsecret value="{!password}" required="true"
+								styleClass="generalNormalLogin" />
+						</apex:pageblockSectionItem>
+						<apex:pageblockSectionItem >
+							<apex:outputLabel >{!$Label.Security_Token} </apex:outputLabel>
+							<apex:inputsecret value="{!securitytoken}"
+								styleClass="generalNormalLogin" />
+						</apex:pageblockSectionItem> 
+						<apex:pageblockSectionItem >
+							<apex:outputLabel >{!$Label.Environment} <font
+									color="red">*</font>
+							</apex:outputLabel>
+							<apex:selectList id="environment" value="{!enviroment}" size="1"
+								styleClass="generalNormalLogin">
+								<apex:selectOptions value="{!EnviromentOptions}" />
+							</apex:selectList>
+						</apex:pageblockSectionItem>
+						<apex:pageblockSectionItem >
+							<apex:commandButton value="{!$Label.Login}" action="{!login}"
+								style="float:right;" status="loginStatus" reRender="form1">
+							</apex:commandButton>
+							<br />
+						</apex:pageblockSectionItem>
+						</apex:pageblockSection>
+				</apex:outputPanel>
+				<apex:outputLabel >
+					<apex:actionStatus id="loginStatus"
+						onstart="document.body.style.cursor='wait';return true;"
+						onStop="document.body.style.cursor='default';return true;"
+						startStyleClass="generalNormal">
+						<apex:facet name="start">
+							<center>
+								<img src="/img/loading.gif" />&nbsp;Logging In...
+							</center>
+						</apex:facet>
+						<apex:facet name="stop" />
+					</apex:actionStatus>
+				</apex:outputLabel>
+				<br />
+				<apex:outputPanel id="OtherOrgObject1"
+					rendered="{!isConnectedObjects}">
+					<table>
+						<tr>
+							<td><div style="background-color: #DCDCDC" width="450px">Self
+									: {!selfOrgName}/{!selfOrgUserName}</div>
+							</td>
+
+							<td><div style="background-color: #DCDCDC" width="450px">Remote
+									: {!remoteOrgName}/{!remoteOrgUserName}</div>
+							</td>
+						</tr>
+						<apex:repeat value="{!fieldList}" var="field">
+							<tr>
+								<td><apex:selectList value="{!field.sourceObject}" size="1"
+										styleClass="generalNormal">
+										<apex:selectOptions value="{!SFDCObjectList}">
+										</apex:selectOptions>
+									</apex:selectList>
+								</td>
+								<td><apex:selectList value="{!field.targetObject}" size="1"
+										styleClass="generalNormal">
+										<apex:selectOptions value="{!MetadataObjectList}">
+										</apex:selectOptions>
+									</apex:selectList>
+								</td>
+							</tr>
+							<br />
+						</apex:repeat>
+					</table>
+				</apex:outputPanel>
+				<apex:outputLabel style="float:center;">
+					<apex:actionStatus id="dynamicStatus"
+						onstart="document.body.style.cursor='wait';return true;"
+						onStop="document.body.style.cursor='default';return true;"
+						startStyleClass="generalNormal">
+						<apex:facet name="start">
+							<center>
+								<img src="/img/loading.gif" />
+							</center>
+						</apex:facet>
+						<apex:facet name="stop" />
+					</apex:actionStatus>
+				</apex:outputLabel>
+			</apex:outputPanel>
+			<br />
+			&nbsp;<apex:commandLink action="{!addRow1}" rendered="{!addRow}"
+				rerender="form1,msgs" status="dynamicStatus">
+				<apex:image value="{!URLFOR($Resource.InterOrgComparerResources, '/img/plus_1.png')}"
+					title="Add Comparison" />
+			</apex:commandLink>&nbsp;&nbsp;&nbsp;&nbsp;
+			<apex:commandLink action="{!removeRow1}" rendered="{!removeRow}"
+				rerender="form1,msgs" status="dynamicStatus">
+				<apex:image value="{!URLFOR($Resource.InterOrgComparerResources, '/img/remove_1.png')}"
+					title="Remove Comparison" />
+			</apex:commandLink>
+			<apex:outputPanel id="showInfo"
+				rendered="{!isButtonDisabled}">
+			</apex:outputPanel>
+			<apex:pageBlockButtons location="bottom"> 
+				<apex:commandButton value="{!$Label.Compare}"
+					rendered="{!isCompareButtonVisible}"
+					disabled="{!isButtonDisabled}"
+					action="{!compareMetadataObjects}" status="status" id="btnCompare"></apex:commandButton>
+			</apex:pageBlockButtons>
+		</apex:pageblock>
+	</apex:form>
+</apex:page>

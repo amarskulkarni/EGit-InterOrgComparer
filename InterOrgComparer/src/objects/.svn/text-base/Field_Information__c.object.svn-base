@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object to store field metadata information of the objects present in an org.</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>API_Name__c</fullName>
+        <description>API Name of the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the field.</inlineHelpText>
+        <label>API Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Byte_Length__c</fullName>
+        <description>Maximum size of the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum size of the field.</inlineHelpText>
+        <label>Byte Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Can_Create__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field can be created by current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field can be created by current user or not.</inlineHelpText>
+        <label>Can Create</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Can_Update__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field can be updated by the current user or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field can be updated by the current user or not.</inlineHelpText>
+        <label>Can Update</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Can_Upsert__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field can be used to specify a record in an upsert method or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field can be used to specify a record in an upsert method or not.</inlineHelpText>
+        <label>Can Upsert</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comparison_Source__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Self lookup.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Self lookup.</inlineHelpText>
+        <label>Comparison Source</label>
+        <referenceTo>Field_Information__c</referenceTo>
+        <relationshipLabel>Field Informations</relationshipLabel>
+        <relationshipName>Field_Informations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contains_HTML_Data__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field has been formatted for HTML.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field has been formatted for HTML.</inlineHelpText>
+        <label>Contains HTML Data</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Digits__c</fullName>
+        <description>Maximum number digits specified for the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum number digits specified for the field.</inlineHelpText>
+        <label>Digits</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field_Category__c</fullName>
+        <description>Determines whether the field is a standard or custom field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field is a standard or custom field.</inlineHelpText>
+        <label>Field Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Standard Field</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Custom Field</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Formula_Used__c</fullName>
+        <description>Formula used for the formula field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Formula used for the formula field.</inlineHelpText>
+        <label>Formula Used</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Has_Multiple_SObject_Parents__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines if the field can have multiple types of objects as parents.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines if the field can have multiple types of objects as parents.</inlineHelpText>
+        <label>Has Multiple SObject Parents</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Help_Text__c</fullName>
+        <description>Help text related to the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Help text related to the field.</inlineHelpText>
+        <label>Help Text</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Is_Auto_Number__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field is auto number or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field is auto number or not.</inlineHelpText>
+        <label>Is Auto Number</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Case_Sensitive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field is case sensitive or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field is case sensitive or not.</inlineHelpText>
+        <label>Is Case Sensitive</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Dependent_Picklist__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the picklist is a dependent picklist or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the picklist is a dependent picklist or not.</inlineHelpText>
+        <label>Is Dependent Picklist</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Deprecated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field is hidden or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field is hidden or not.</inlineHelpText>
+        <label>Is Deprecated</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_External_ID__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field is used as an external ID or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field is used as an external ID or not.</inlineHelpText>
+        <label>Is External ID</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Field_Visible__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the current user can see this field or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the current user can see this field or not.</inlineHelpText>
+        <label>Is Field Visible</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field is required or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field is required or not.</inlineHelpText>
+        <label>Is Required</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Unique__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines if the field is unique or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines if the field is unique or not.</inlineHelpText>
+        <label>Is Unique</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <description>Label of the object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Label of the object.</inlineHelpText>
+        <label>Label</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Length__c</fullName>
+        <description>Length of the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Length of the field.</inlineHelpText>
+        <label>Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Object__c</fullName>
+        <description>Master-Detail relationship between this object and Object Information.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Master-Detail relationship between this object and Object Information.</inlineHelpText>
+        <label>Parent Object</label>
+        <referenceTo>Object_Information__c</referenceTo>
+        <relationshipLabel>Field Informations</relationshipLabel>
+        <relationshipName>Field_Informations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Picklist_Values__c</fullName>
+        <description>Picklist values of the picklist field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Picklist values of the picklist field.</inlineHelpText>
+        <label>Picklist Values</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Precision__c</fullName>
+        <description>For fields of type Double, the maximum number of digits that can be stored, including all numbers to the left and to the right of the decimal point.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>For fields of type Double, the maximum number of digits that can be stored, including all numbers to the left and to the right of the decimal point.</inlineHelpText>
+        <label>Precision</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Relationship_Name__c</fullName>
+        <description>Relationship name for the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Relationship name for the field.</inlineHelpText>
+        <label>Relationship Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Scale__c</fullName>
+        <description>For fields of type Double, the number of
+digits to the right of the decimal point.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>For fields of type Double, the number of
+digits to the right of the decimal point.</inlineHelpText>
+        <label>Scale</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Soap_Type__c</fullName>
+        <description>DisplayType enum values for the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DisplayType enum values for the field.</inlineHelpText>
+        <label>Soap Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>anytype</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>base64binary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DateTime</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Double</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ID</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>String</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Data type of the field.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Data type of the field.</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Name</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Checkbox</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Currency</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DateTime</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Encrypted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ID</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Multi Picklist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Percent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reference</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Text</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Text Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>URL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_in_Group_By_Clause__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field can be included in the GROUP BY clause of a SOQL query or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field can be included in the GROUP BY clause of a SOQL query or not.</inlineHelpText>
+        <label>Use in Group By Clause</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_in_Order_By_Clause__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the query can sort on the field or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the query can sort on the field or not.</inlineHelpText>
+        <label>Use in Order By Clause</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Use_in_Where_Clause__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Determines whether the field can be used as part of the filter criteria of a WHERE statement or not.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines whether the field can be used as part of the filter criteria of a WHERE statement or not.</inlineHelpText>
+        <label>Use in Where Clause</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <label>Field Information</label>
+    <nameField>
+        <label>Field Information Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Field Informations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

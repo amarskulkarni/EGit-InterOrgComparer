@@ -1,0 +1,256 @@
+<apex:page controller="MatchPercentage" id="thePage">
+	<head>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script>
+	function chart() {
+		var comparison = document.getElementById('thePage:theForm:ttt').value;
+		if (comparison == 'Object Comparison')
+			drawChart();
+		else if (comparison == 'Field Comparison')
+			drawFieldChart();
+		else
+			drawChildChart();
+	}
+
+	function redirectToReport() {
+		window.parent.location = 'https://ap1.salesforce.com/apex/DetailedComparisonReport'
+	}
+</script>
+
+<script type="text/javascript">
+	// Load the Visualization API and the piechart package.
+	google.load('visualization', '1.0', {
+		'packages' : [ 'corechart' ]
+	});
+
+	// Set a callback to run when the Google Visualization API is loaded.
+	google.setOnLoadCallback(drawChart);
+
+	// Callback that creates and populates a data table,
+	// instantiates the pie chart, passes in the data and
+	// draws it.
+	function drawChart() {
+		MatchPercentage.calculateDetailObjectMatchPercentage(function(result,
+				event) {
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+
+			data.addColumn('string',
+					'{!$Label.Match_Percentage_at_Object_Level}');
+			data.addColumn('number', '{!$Label.No_Match_Percentage}');
+			data.addColumn('number', '{!$Label.Match_Percentage}');
+
+			//var v = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
+
+			for ( var i = 0; i < result.length; i++) {
+				var r = result[i];
+				data.addRow([
+						r.targetObjectName,
+						Math.round(r.noMatchPercentage * Math.pow(10, 2))
+								/ Math.pow(10, 2),
+						Math.round(r.matchPercentage * Math.pow(10, 2))
+								/ Math.pow(10, 2) ]);
+			}
+
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById('chart_div'));
+			chart.draw(data, {
+				//title : '{!$Label.Object_Level_Comparison}',
+				width : 400,
+				height : 300,
+
+				legend : {
+					position : 'top',
+					textStyle : {
+						color : 'black',
+						fontSize : 10
+					}
+				},
+				colors : [ '#E03A3E', '#64BB4A' ],
+				isStacked : true,
+				vAxis : {
+					textStyle : {
+						fontSize : 10
+					}
+				},
+				hAxis : {
+					textStyle : {
+						fontSize : 10
+					},
+					showTextEvery : 1,
+					slantedText : true
+				}
+			});
+		}, {
+			escape : true
+		});
+	}
+
+	function drawFieldChart() {
+		MatchPercentage.calculateDetailFieldMatchPercentage(function(result,
+				event) {
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+
+			data.addColumn('string',
+					'{!$Label.Match_Percentage_at_Object_Level}');
+			data.addColumn('number', '{!$Label.No_Match_Percentage}');
+			data.addColumn('number', '{!$Label.Match_Percentage}');
+
+			//var v = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
+
+			for ( var i = 0; i < result.length; i++) {
+				var r = result[i];
+				data.addRow([
+						r.targetObjectName,
+						Math.round(r.noMatchPercentage * Math.pow(10, 2))
+								/ Math.pow(10, 2),
+						Math.round(r.matchPercentage * Math.pow(10, 2))
+								/ Math.pow(10, 2) ]);
+			}
+
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById('chart_div'));
+			chart.draw(data, {
+				//title : '{!$Label.Object_Level_Comparison}',
+				width : 400,
+				height : 300,
+
+				legend : {
+					position : 'top',
+					textStyle : {
+						color : 'black',
+						fontSize : 10
+					}
+				},
+				colors : [ '#E03A3E', '#64BB4A' ],
+				isStacked : true,
+				vAxis : {
+					textStyle : {
+						fontSize : 10
+					}
+				},
+				hAxis : {
+					textStyle : {
+						fontSize : 10
+					},
+					showTextEvery : 1,
+					slantedText : true
+				}
+			});
+		}, {
+			escape : true
+		});
+	}
+
+	function drawChildChart() {
+		MatchPercentage.calculateDetailChildMatchPercentage(function(result,
+				event) {
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+
+			data.addColumn('string',
+					'{!$Label.Match_Percentage_at_Object_Level}');
+			data.addColumn('number', '{!$Label.No_Match_Percentage}');
+			data.addColumn('number', '{!$Label.Match_Percentage}');
+
+			//var v = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
+
+			for ( var i = 0; i < result.length; i++) {
+				var r = result[i];
+				data.addRow([
+						r.targetObjectName,
+						Math.round(r.noMatchPercentage * Math.pow(10, 2))
+								/ Math.pow(10, 2),
+						Math.round(r.matchPercentage * Math.pow(10, 2))
+								/ Math.pow(10, 2) ]);
+			}
+
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById('chart_div'));
+			chart.draw(data, {
+				//title : '{!$Label.Object_Level_Comparison}',
+				width : 400,
+				height : 300,
+
+				legend : {
+					position : 'top',
+					textStyle : {
+						color : 'black',
+						fontSize : 10
+					}
+				},
+				colors : [ '#E03A3E', '#64BB4A' ],
+				isStacked : true,
+				vAxis : {
+					textStyle : {
+						fontSize : 10
+					}
+				},
+				hAxis : {
+					textStyle : {
+						fontSize : 10
+					},
+					showTextEvery : 1,
+					slantedText : true
+				}
+			});
+		}, {
+			escape : true
+		});
+	}
+</script>
+<apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/compare.css')}" />
+<apex:stylesheet value="{!URLFOR($Resource.InterOrgComparerResources, 'css/SnapItMetadataXplorerStyle.css')}" />
+	</head>
+
+	<body>
+	<apex:outputLabel value="{!batchProgressInfo}" id="batchProgressInfo"
+	rendered="{!isBatchRunning}" style="color:Gray;font-weight:bold" />
+<apex:outputLabel value="{!batchFailed}" rendered="{!isBatchFailed}"
+	style="color:Gray;font-weight:bold" />
+	<apex:outputLabel value="{!$Label.No_Detailed_Comparison_Metadata_Report}" rendered="{!!isChartVisibleDetailed}" style="color:gray;font-weight:bold"/>
+	
+		<apex:form id="theForm" rendered="{!isReportVisibleDetailed}">
+			<div id="theDiv">
+				<table>
+					<tr>
+						<td><apex:outputLabel value="Self Org  "
+								style="font-weight:bold;color:#701125" /></td>
+						<td>:</td>
+						<td><apex:outputLabel value="{!selfOrgUser}"
+								style="text-decoration:underline" /></td>
+					</tr>
+					<tr>
+						<td><apex:outputLabel value="Target Org  "
+								style="font-weight:bold;color:#701125" /></td>
+						<td>:</td>
+						<td><apex:outputLabel value="{!targetOrgUser}"
+								style="text-decoration:underline" /></td>
+					</tr>
+				</table>
+				<apex:image value="{!URLFOR($Resource.InterOrgComparerResources, '/img/get_info.png')}"
+					title="Info"/>&nbsp;
+				<apex:outputLabel id="Message" value="Clicking on the chart, redirects 
+				you to the corresponding metadata comparison report."
+				style="color:#701125;font-size:12px;font-style:italic;"></apex:outputLabel>
+				<br/>
+				<apex:outputLabel value="Select Comparison Type :"
+					style="font-weight:bold;color:#701125" />
+				&nbsp;
+				<apex:selectList value="{!metadataToCompare}" size="1"
+					styleClass="generalNormalLogin" id="ttt" onChange="chart();">
+					<apex:SelectOptions value="{!metadata}" />
+				</apex:selectList>
+				
+			</div>
+			<div id="chart_div" onClick="redirectToReport();"
+				style="cursor: pointer;" title="Metadata Comparison"></div>
+
+		</apex:form>
+	</body>
+</apex:page>

@@ -1,0 +1,719 @@
+<!-- * page is to get extracted the Detail Comparison metadata into the Excel format-->
+<!-- *  Revision History: -->
+<!-- *  Version             Author              Date                Description -->
+<!-- *  1.0                Amol Chaudhari      10/12/2012          Intial Draft -->
+<apex:page controller="ExportDetailComparisonReportController" action="{!MetadataComparison}" sidebar="false"
+	standardStylesheets="false"
+	contentType="application/vnd.ms-excel#{!$Label.Detail_Comparison_Excel}{!dateToAppendToExcel}.xls">
+<apex:form > 
+			<div style="width: 1300px; overflow: scroll">
+			<table>
+								<tr style="font-weight: bold;">Object Comparison
+					</tr>
+			</table>
+			<table CELLPADDING="4" border="1" cellspacing="0">
+					<tr>
+						<th rowspan="2" bgcolor="#99CCFF" class="headersCenterBold">Sr.No.</th>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Label__c.label}</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.API_Name__c.label}</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Key_Prefix__c.label}</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Plural_Label__c.label}</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Field_Count__c.label}</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Chatter_Feed_Enabled__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Accessible__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Custom_Object__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Custom_Setting__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Createable__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Deletable__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Undeletable__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Updateable__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Deprecated__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Mergeable__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Queryable__c.label}?</td>
+						<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Object_Information__c.fields.Is_Searchable__c.label}?</td>
+
+
+					</tr>
+					<tr>
+						<td
+							style="font-family: 'Verdana'; font-size: 8pt; text-align: center; min-width: 75px; max-width: 75px; font-weight: bold;"
+							bgcolor="#99CCFF">Source</td>
+						<td
+							style="font-family: 'Verdana'; font-size: 8pt; text-align: center; min-width: 75px; max-width: 75px; font-weight: bold;"
+							bgcolor="#99CCFF">Target</td>
+						<td
+							style="font-family: 'Verdana'; font-size: 8pt; text-align: center; min-width: 75px; max-width: 75px; font-weight: bold;"
+							bgcolor="#99CCFF">Match</td>
+
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						<td class="headersBold" bgcolor="#99CCFF">Source</td>
+						<td class="headersBold" bgcolor="#99CCFF">Target</td>
+						<td class="headersBold" bgcolor="#99CCFF">Match</td>
+
+					</tr>
+					<apex:repeat value="{!comparisonLogList}" var="objComparison">
+						<tr>
+							<td class="headers"><apex:outputLabel value="{!objComparison.srNo}"></apex:outputLabel></td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceLabel}"></apex:outputLabel></td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetLabel}"></apex:outputLabel></td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchLabel}"></apex:outputLabel></td>
+
+
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceAPIName}"></apex:outputLabel></td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetAPIName}"></apex:outputLabel></td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchAPIName}"></apex:outputLabel></td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceKeyPrefix}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetKeyPrefix}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchKeyPrefix}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourcePluralLabel}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetPluralLabel}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchPluralLabel}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceFieldCount}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetFieldCount}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!IF(objComparison.targetFieldCount==objComparison.sourceFieldCount,'Yes','No')}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourcechatterFeedEnabled}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetchatterFeedEnabled}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchchatterFeedEnabled}"></apex:outputLabel>
+							</td>
+
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceAccessible}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetAccessible}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchAccessible}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceCustomObject}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetCustomObject}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchCustomObject}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceCustomSetting}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetCustomSetting}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchCustomSetting}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceCreateable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetCreateable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchCreateable}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceDeletable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetdeletable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchDeletable}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceUndeletable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetUndeletable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchUndeletable}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceUpdateable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetUpdateable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchUpdateable}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceDeprecated}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetdeprecated}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchDeprecated}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceMergeable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetMergeable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchMergeable}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceQueryable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetQueryable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchQueryable}"></apex:outputLabel>
+							</td>
+
+							<td class="headers"><apex:outputLabel value="{!objComparison.sourceSearchable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.targetSearchable}"></apex:outputLabel>
+							</td>
+							<td class="headers"><apex:outputLabel value="{!objComparison.matchSearchable}"></apex:outputLabel>
+							</td>
+
+
+						</tr>
+					</apex:repeat>
+				</table>
+			</div>
+		   <br/><br/>
+		   <table>
+			<tr>Field Comparison
+					</tr>
+				<tr>
+					<td><apex:outputLabel value="Source Object :"
+							style="font-weight:bold;font-size:12px"></apex:outputLabel></td>
+					<td><apex:outputLabel value="{!sourceFieldObject}"
+							style="font-size:12px"></apex:outputLabel></td>
+					<td />
+					<td />
+					<td />
+					<td><apex:outputLabel value="Target Object :"
+							style="font-weight:bold;font-size:12px"></apex:outputLabel></td>
+					<td><apex:outputLabel value="{!targetFieldObject}"
+							style="font-size:12px"></apex:outputLabel></td>
+				</tr>
+			</table>
+			<br /> 
+			
+			<apex:outputPanel id="fldComparisonTable">
+				<div style="width: 1300px; max-height: 450px; overflow: scroll">
+					<table cellpadding="4" border="1" cellspacing="0">
+						<tr>
+							<th rowspan="2" bgcolor="#99CCFF" class="headersCenterBold">Sr.No.</th>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Label__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.API_Name__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Type__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Length__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Scale__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Precision__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Digits__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Byte_Length__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Field_Category__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Soap_Type__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Formula_Used__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Help_Text__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Default_Value__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Relationship_Name__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Picklist_Values__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Can_Create__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Can_Update__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$Label.Use_in_Upsert}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Contains_HTML_Data__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Has_Multiple_SObject_Parents__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Auto_Number__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Case_Sensitive__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Dependent_Picklist__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Deprecated__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_External_ID__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Field_Visible__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$label.Is_Nillable}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Is_Unique__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Use_in_Group_By_Clause__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Use_in_Order_By_Clause__c.label}?</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Field_Information__c.fields.Use_in_Where_Clause__c.label}?</td>
+
+						</tr>
+						<tr>
+
+							<td
+								style="font-family: 'Verdana'; font-size: 8pt; text-align: center; min-width: 75px; max-width: 75px; font-weight: bold;"
+								bgcolor="#99CCFF" width="75px">Source</td>
+							<td
+								style="font-family: 'Verdana'; font-size: 8pt; text-align: center; min-width: 75px; max-width: 75px; font-weight: bold;"
+								bgcolor="#99CCFF" width="75px">Target</td>
+							<td
+								style="font-family: 'Verdana'; font-size: 8pt; text-align: center; min-width: 75px; max-width: 75px; font-weight: bold;"
+								bgcolor="#99CCFF" width="75px">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						</tr>
+
+						<apex:repeat value="{!fieldComparisonLogList}" var="fldComparison">
+							<tr>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.srNo}"></apex:outputLabel></td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldLabel}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldLabel}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldLabel}"></apex:outputLabel></td>
+
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldAPIName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldAPIName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldFieldAPIName}"></apex:outputLabel>
+								</td>
+
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldType}"></apex:outputLabel></td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldType}"></apex:outputLabel></td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldType}"></apex:outputLabel></td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldLength}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldLength}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldLength}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldScale}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldScale}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldScale}"></apex:outputLabel></td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldPrecision}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldPrecision}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldPrecision}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldDigits}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldDigits}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldDigits}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldByteLength}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldByteLength}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldByteLength}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldCategory}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldCategory}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldCategory}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldSoapType}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldSoapType}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldSoapType}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldFormulaeUsed}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldFormulaeUsed}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldFormulaeUsed}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldHelpText}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldHelpText}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldHelpText}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceDefaultValue}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetDefaultValue}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchDefaultValue}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldRelationshipName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldRelationshipName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldRelationshipName}"></apex:outputLabel>
+								</td>
+
+								<td
+									style="font-family: 'Verdana'; font-size: 8pt; text-align: center; max-width: 75px; min-width: 75px; word-wrap: break-word;"><apex:outputLabel value="{!fldComparison.sourceFieldPicklistValues}"></apex:outputLabel>
+								</td>
+								<td
+									style="font-family: 'Verdana'; font-size: 8pt; text-align: center; max-width: 75px; min-width: 75px; word-wrap: break-word;"><apex:outputLabel value="{!fldComparison.targetFieldPicklistValues}"></apex:outputLabel>
+								</td>
+								<td
+									style="font-family: 'Verdana'; font-size: 8pt; text-align: center; max-width: 75px; min-width: 75px; word-wrap: break-word;"><apex:outputLabel value="{!fldComparison.matchFieldPicklistValues}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldCreatable}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldCreatable}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldCreatable}"></apex:outputLabel>
+								</td>
+
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldUpdateable}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldUpdateable}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUpdateable}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldUpsertable}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldUpsertable}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUpsertable}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldContainsHtmlData}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldContainsHtmlData}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldContainsHtmlData}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldHasMultipleSObjectParents}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldHasMultipleSObjectParents}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldHasMultipleSObjectParents}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldAutoNumber}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldAutoNumber}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldAutoNumber}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldCaseSensitive}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldCaseSensitive}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldCaseSensitive}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldDependentPicklist}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldDependentPicklist}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldDependentPicklist}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldDeprecated}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldDeprecated}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldDeprecated}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldExternalID}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldExternalID}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldExternalID}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldVisible}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldVisible}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldVisible}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldRequired}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldRequired}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldRequired}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldUnique}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldUnique}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUnique}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldUseinGroupByClause}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldUseinGroupByClause}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUseinGroupByClause}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldUseinOrderByClause}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldUseinOrderByClause}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUseinOrderByClause}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!fldComparison.sourceFieldUseinWhereClause}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.targetFieldUseinWhereClause}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!fldComparison.matchFieldUseinWhereClause}"></apex:outputLabel>
+								</td>
+
+							</tr>
+						</apex:repeat>
+
+					</table>
+					</div>
+					</apex:outputPanel>
+			 <br/><br/>
+			<table>
+						<tr style="font-weight: bold;">Child Relationship Comparison
+					</tr>
+				<tr>
+					<td><apex:outputLabel value="Source Object :"
+							style="font-weight:bold;font-size:12px"></apex:outputLabel>
+					</td>
+					<td><apex:outputLabel value="{!sourceChildObject}"
+							style="font-size:12px"></apex:outputLabel>
+					</td>
+					<td />
+					<td />
+					<td />
+					<td><apex:outputLabel value="Target Object :"
+							style="font-weight:bold;font-size:12px"></apex:outputLabel>
+					</td>
+					<td><apex:outputLabel value="{!targetChildObject}"
+							style="font-size:12px"></apex:outputLabel>
+					</td>
+				</tr>
+			</table>
+			<br />
+				<div style="width: 1300px; max-height: 450px; overflow: scroll">
+					<table cellpadding="4" border="1" cellspacing="0">
+						<tr>
+							<th rowspan="2" bgcolor="#99CCFF" class="headersCenterBold">Sr.No.</th>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Child_Object__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Relationship_Name__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Relationship_Field_Name__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.Type__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.isDeprecatedAndHidden__c.label}</td>
+							<td colspan="3" class="headersCenterBold" bgcolor="#99CCFF">{!$ObjectType.Child_Relationship__c.fields.isRestrictedDelete__c.label}</td>
+						</tr>
+						<tr>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+							<td class="headersBold" bgcolor="#99CCFF">Source</td>
+							<td class="headersBold" bgcolor="#99CCFF">Target</td>
+							<td class="headersBold" bgcolor="#99CCFF">Match</td>
+						</tr>
+
+						<apex:repeat value="{!childComparisonLogList}"
+							var="childComparison">
+							<tr>
+								<td class="headers"><apex:outputLabel value="{!childComparison.srNo}"></apex:outputLabel></td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.sourceChildChildObject}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.targetChildChildObject}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.matchChildChildObject}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!childComparison.sourceChildRelationshipName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.targetChildRelationshipName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.matchChildRelationshipName}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!childComparison.sourceChildRelationshipFieldName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.targetChildRelationshipFieldName}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.matchChildRelationshipFieldName}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!childComparison.sourceChildRelationshipType}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.targetChildRelationshipType}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.matchChildRelationshipType}"></apex:outputLabel>
+								</td>
+
+								<td class="headers"><apex:outputLabel value="{!childComparison.sourceChildIsDeprecatedAndHidden}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.targetChildIsDeprecatedAndHidden}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.matchChildIsDeprecatedAndHidden}"></apex:outputLabel>
+								</td>
+
+
+								<td class="headers"><apex:outputLabel value="{!childComparison.sourceChildIsRestrictedDelete}"></apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.targetChildIsRestrictedDelete}">
+										</apex:outputLabel>
+								</td>
+								<td class="headers"><apex:outputLabel value="{!childComparison.matchChildIsRestrictedDelete}"></apex:outputLabel>
+								</td>
+
+							</tr>
+						</apex:repeat>
+					</table> 
+					</div>
+			</apex:form>
+			<br/><br/>
+</apex:page>
