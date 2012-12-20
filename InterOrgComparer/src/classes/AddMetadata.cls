@@ -16,7 +16,7 @@ public with sharing class AddMetadata {
 			objectInformation = new Object_Information__c(Id = objectInformationId);
 	  else
 			objectInformation = new Object_Information__c();
- 	
+ 	 
  	objectInformation.Label__c = objectMetadata.label;
     objectInformation.Plural_Label__c = objectMetadata.labelPlural; 
     objectInformation.Key_Prefix__c = objectMetadata.keyPrefix; 
